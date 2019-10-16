@@ -1,2 +1,0 @@
-# SeniorProject
-Calendly Collaborative Calendar.
