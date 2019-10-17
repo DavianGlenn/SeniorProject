@@ -1,5 +1,40 @@
 
 <?php session_start(); ?>
+<?php
+
+//$Day = filter_input(INPUT_POST, 'Day');
+$Event = filter_input(INPUT_POST, 'Event');
+//$Months = filter_input(INPUT_POST, 'Months');
+//$Year = filter_input(INPUT_POST, 'Year');
+
+ 
+$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+
+ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+
+if (!$con){
+    die('Could not connect: ' . mysqli_connect_errno()); //return error is connect fail
+}
+else{
+	echo "IGNORE THIS MESSAGE PLEASE";
+}
+
+$query= $con->prepare ( "INSERT INTO calendar_dates (Events) values ('$Event')");
+$query -> bind_param("s",$Event);
+if ($query->execute()){
+        echo "Entry Success";
+    } // display when user is added
+        else{
+            echo"Error in adding user!"; // display when there is error
+        }
+
+?>
+
 <html>
 <title>Calendly NCAT</title>
 <meta charset="UTF-8">
@@ -26,7 +61,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <img src="avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-	<form action="dashboard.html" method="post">
+	<form action="dashboard.php" method="post">
       <span>Welcome, <strong><?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></strong></span><br>
 	  </form>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
@@ -140,15 +175,17 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         </li>
       </ul>
     </div>
-    <form ng-submit='calendar.add()'>
-      <input ng-model='calendar.description' placeholder='Enter a task for this day' type='text'>
-        <select ng-model='calendar.type' placeholder='calendar.type'>
+    <form method = "post" action="">
+      <input  placeholder='Enter a task for this day' type='text' name="Event">
+		<select ng-model='calendar.type' placeholder='calendar.type'>
           <option value='Personal'>Personal</option>
           <option value='Academic'>Academic</option>
 		  <option value='Social'>Social</option>
 		  <option value='Work'>Work</option>
         </select>
+		<button> Submit </button>
       </input>
+	  
     </form>
   </div>
 </div>
