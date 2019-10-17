@@ -4,6 +4,7 @@
 
 //$Day = filter_input(INPUT_POST, 'Day');
 $Event = filter_input(INPUT_POST, 'Event');
+$Type = filter_input(INPUT_POST, 'Type');
 //$Months = filter_input(INPUT_POST, 'Months');
 //$Year = filter_input(INPUT_POST, 'Year');
 
@@ -24,8 +25,8 @@ else{
 	echo "IGNORE THIS MESSAGE PLEASE";
 }
 
-$query= $con->prepare ( "INSERT INTO calendar_dates (Events) values ('$Event')");
-$query -> bind_param("s",$Event);
+$query= $con->prepare ( "INSERT INTO calendar_dates (Events, Type) values ('$Event','$Type')");
+$query -> bind_param("s",$Event,$Type);
 if ($query->execute()){
         echo "Entry Success";
     } // display when user is added
@@ -177,12 +178,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <form method = "post" action="">
       <input  placeholder='Enter a task for this day' type='text' name="Event">
-		<select ng-model='calendar.type' placeholder='calendar.type'>
-          <option value='Personal'>Personal</option>
-          <option value='Academic'>Academic</option>
-		  <option value='Social'>Social</option>
-		  <option value='Work'>Work</option>
-        </select>
+			<div><color="white">Please insert 1 If This Is A Personal Event</div>
+			<div>Please insert 2 If This Is A Social Event</div>
+			<div>Please insert 3 If This Is A Academic Event</div>
+			<div>Please insert 4 If This Is A Work Related Event</color></div>
+		<input  placeholder='Enter Event Type Digit' type='text' name="Type">
 		<button> Submit </button>
       </input>
 	  
