@@ -1,4 +1,4 @@
-<?php session_start(); require "../Login.php" ?>
+<?php  require "../Login.php" ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -216,6 +216,12 @@
               </li>
             </ul>
           </li>
+		  <a href="index.php" class="nav-link active">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+             Dashboard
+              <span class="badge badge-info right">0</span>
+            </p>
 
 
       <!-- /.sidebar-menu -->
