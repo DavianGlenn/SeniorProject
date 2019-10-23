@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 if(isset($_SESSION['use']))   // Checking whether the session is already there or not if 
                               // true then header redirect it to the home page directly 
  {
@@ -28,7 +28,7 @@ if(isset($_POST['submit']))   // it checks whether the user clicked login button
 
          echo $user ; 
 			
-		  echo '<script type="text/javascript"> window.open("websiteTemplate/index.html","_self");</script>';           //  On Successful Login redirects to home.php
+		  echo '<script type="text/javascript"> window.open("websiteTemplate/index.php","_self");</script>';           //  On Successful Login redirects to home.php
 
 		 }
         else
@@ -39,5 +39,7 @@ if(isset($_POST['submit']))   // it checks whether the user clicked login button
  }
  
  }
+
  }
+?>
 ?>

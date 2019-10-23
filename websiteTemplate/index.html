@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -170,7 +171,7 @@
           <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Ncat Student</a>
+          <a href="#" class="d-block"><<?php if(isset($_SESSION['use'])){{echo $_SESSION['use'];}}?></a>
         </div>
       </div>
 
