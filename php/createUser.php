@@ -29,7 +29,7 @@ values ('$username','$password','$firstname','$lastname','$email','$phonenumber'
 $query -> bind_param("ssssss",$username,$password,$firstname,$lastname,$email,$phonenumber);
 if ($query->execute()){
         echo"<center><strong>User added! </strong></center>";
-		echo '<a href="../user_authentication/login.php">Click here</a>';
+		echo '<a href="../index.html">Click here</a>';
     } // display when user is added
         else{
             echo"Error in adding user!"; // display when there is error

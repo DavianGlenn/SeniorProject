@@ -19,6 +19,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition register-page">
+<form  method="post" action="php/createUser.php">
 <div class="register-box">
   <div class="register-logo">
     <a href="../../index.html"><b>Calendly</b>For NCAT students</a>
@@ -28,9 +29,25 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="../../index.html" method="post">
+      
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
+          <input class="form-control" type="text" placeholder="First Name" name="First_Name">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+		 <div class="input-group mb-3">
+          <input type="text" class="form-control" name="Last_Name" placeholder="Last Name">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+		 <div class="input-group mb-3">
+          <input type="text" class="form-control" name="Username" placeholder="Username">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -38,7 +55,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" name="Email" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -46,7 +63,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" name="Password" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -61,6 +78,14 @@
             </div>
           </div>
         </div>
+		 <div class="input-group mb-3">
+          <input type="text" class="form-control" name="Phone_Number" placeholder="Phone Number">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
@@ -70,10 +95,10 @@
               </label>
             </div>
           </div>
-          <?php include("php/createUser.php"); ?>
+          
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+            <button class="btn btn-primary btn-block btn-flat"><a type="submit" name="submit">Register</a></button>
           </div>
           <!-- /.col -->
         </div>
