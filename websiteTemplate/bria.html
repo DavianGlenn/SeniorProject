@@ -1,28 +1,4 @@
-<?php
-include"../users.php";
- if(isset($_POST["submit1"])){
-        $interestarr=$_POST["academics"];
-         $newvalues=  implode(",", $interestarr);
-		 include_once 'php/academics.php';
-		$checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase($newvalues);
-		  }
-	if(isset($_POST["submit2"])){
-        $interestarr=$_POST["social"];
-        $newvalues=  implode(",", $interestarr);
-        include_once 'php/social.php';
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase($newvalues);
-    }
-		if(isset($_POST["submit3"])){
-			$interestarr=$_POST["commserv"];
-			$newvalues=  implode(",", $interestarr);
-			include_once 'php/communityservice.php';
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase($newvalues);
-    }
-
-?>
+<?php require "../Login.php";?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +39,7 @@ include"../users.php";
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.php" class="nav-link">Home</a>
+        <a href="index.html" class="nav-link">Home</a>
       </li>
 
     </ul>
@@ -93,7 +69,7 @@ include"../users.php";
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index.php" class="brand-link">
+    <a href="index.html" class="brand-link">
       <img src="dist/img/ncatLogo.png" alt="North Carolina A&T Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Calendly for students</span>
@@ -107,7 +83,7 @@ include"../users.php";
           <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a> <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
+          <a><?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
         </div>
       </div>
 
@@ -124,7 +100,7 @@ include"../users.php";
              Dashboard
 
             </p>
-            <a href="pages/calendar.php" class="nav-link">
+            <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Calendar
@@ -155,11 +131,11 @@ include"../users.php";
               </li>
             </ul>
           </li>
-		  <a href="../Logout/logout.php" class="nav-link">
+		  <a href="../Logout/logout.php" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
              Logout
-              <span class="badge badge-info right"></span>
+              <span class="badge badge-info right">0</span>
             </p>
 
       <!-- /.sidebar-menu -->
@@ -179,6 +155,7 @@ include"../users.php";
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Home Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -280,29 +257,115 @@ include"../users.php";
               <div class="card-body">
                 <ul class="todo-list" data-widget="todo-list">
                   <li>
-                   
+                    <!-- drag handle -->
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
                     <!-- checkbox -->
-			<div class="card-body">
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-              <input type="checkbox" id="academics" name="academics[]" value="Study Blitz with the Royal Court"> Study Blitz with the Royal Court (11/03)</br>
-            <br><input type="checkbox" id="academics" name="academics[]" value="Midwest Study Sessions">Midwest Study Sessions (11/03)</br>
-            <br><input type="checkbox" id="academics" name="academics[]" value="Supplemental Instruction">Supplemental Instruction (11/03)</br>
-            <br><input type="checkbox" id="academics" name="academics[]" value="ACCT 221-Suppl. Instruction">ACCT 221-Suppl. Instruction (11/03)</br>
-            <br><input type="checkbox" id="academics" name="academics[]" value="Student Athletes Study Hall">Student Athletes Study Hall (11/03)</br>
-			 <br><input type="checkbox" id="academics" name="academics[]" value="Student Athletes Study Hall">	Supplemental Instruction- Finance (11/03)</br>
-            <br/>
-            <input type='submit'name="submit1" value='+Add Event' onclick='btnClick();' class="return mess();">
-			<script type ="text/javascript">
-			function mess() {
-   alert(" Your event was added");
-   return true;
-}
-</script>
-        </form>
-    </div> <!-- /container -->
-</div>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                      <label for="todoCheck1"></label>
+                    </div>
+                    <!-- todo text -->
+                    <span class="text">Study Blitz with the Royal Court (11/03)</span>
+                    <!-- Emphasis label -->
+                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                    <!-- General tools such as edit or delete-->
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo2" id="todoCheck2">
+                      <label for="todoCheck2"></label>
+                    </div>
+                    <span class="text">Midwest Study Sessions (11/03)</span>
+                    <small class="badge badge-info"><i class="far fa-clock"></i> 5 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
+                    </div>
+                    <span class="text">Supplemental Instruction (11/04)</span>
+                    <small class="badge badge-warning"><i class="far fa-clock"></i> 10 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo4" id="todoCheck4">
+                      <label for="todoCheck4"></label>
+                    </div>
+                    <span class="text">ACCT 221-Suppl. Instruction (1) (11/04)</span>
+                    <small class="badge badge-success"><i class="far fa-clock"></i> 15 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo5" id="todoCheck5">
+                      <label for="todoCheck5"></label>
+                    </div>
+                    <span class="text">Student Athletes Study Hall (11/04)</span>
+                    <small class="badge badge-primary"><i class="far fa-clock"></i> 20 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo6" id="todoCheck6">
+                      <label for="todoCheck6"></label>
+                    </div>
+                    <span class="text">	Supplemental Instruction- Finance 343III (11/05)</span>
+                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 30 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-footer clearfix">
+                <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add event</button>
+              </div>
+            </div>
+
             <!-- Social List -->
-            <div class="card- body">
+            <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-users mr-1"></i>
@@ -323,37 +386,123 @@ include"../users.php";
               <div class="card-body">
                 <ul class="todo-list" data-widget="todo-list">
                   <li>
-         <div class="card-body">
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <input type="checkbox" id="todoCheck[]" name="social[]" value="Aggies at the Apollo Auditions">Aggies at the Apollo Auditions (11/1-11/2)<br/>
-            <input type="checkbox" id="todoCheck[]" name="social[]" value="A Night of Terror Haunted Festival">A Night of Terror Haunted Festival (10/31)<br/>
-            <input type="checkbox" id="todoCheck[]" name="social[]" value="Laugh out Loud">Laugh out Loud (10/30)<br/>
-            <input type="checkbox" id="todoCheck[]" name="social[]" value="Game Night">Game Night (10/05)<br/>
-            <input type="checkbox" id="todoCheck[]" name="social[]" value="Aggie Bazaar">Aggie Bazaar (09/20)<br/>
-			<input type="checkbox" id="todoCheck[]" name="social[]" value="Aggie Pregame">Aggie Pregame (09/26)<br/>
-            
-            <br/><br/>
-           <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
-			<script type ="text/javascript">
-			function mess() {
-   alert(" Your event was added");
-   return true;
-}
-</script>
-        </form>
-    </div> 
-	</div>
-	</div>
-	<!-- /container -->
+                    <!-- drag handle -->
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <!-- checkbox -->
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                      <label for="todoCheck1"></label>
+                    </div>
+                    <!-- todo text -->
+                    <a href="https://www.instagram.com/p/B4NNkPFHPre/?igshid=19hd59pzdkxjn">Aggies at the Apollo Auditions (11/1-11/2)</a>
+                    <!-- Emphasis label -->
+                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                    <!-- General tools such as edit or delete-->
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo2" id="todoCheck2">
+                      <label for="todoCheck2"></label>
+                    </div>
+                    <span class="text">A Night of Terror Haunted Festival (10/31)</span>
+                    <small class="badge badge-info"><i class="far fa-clock"></i> 5 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
+                    </div>
+                    <span class="text">Laugh out Loud (10/30)</span>
+                    <small class="badge badge-warning"><i class="far fa-clock"></i> 10 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo4" id="todoCheck4">
+                      <label for="todoCheck4"></label>
+                    </div>
+                    <span class="text">Game Night (10/05)</span>
+                    <small class="badge badge-success"><i class="far fa-clock"></i> 15 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo5" id="todoCheck5">
+                      <label for="todoCheck5"></label>
+                    </div>
+                    <span class="text">Aggie Bazaar (09/20)</span>
+                    <small class="badge badge-primary"><i class="far fa-clock"></i> 20 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo6" id="todoCheck6">
+                      <label for="todoCheck6"></label>
+                    </div>
+                    <span class="text">Aggie Pregame (09/26)</span>
+                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 30 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add event</button>
+              </div>
+            </div>
             <!-- /.card -->
-            <div class="card-body">
+            <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-cloud mr-1"></i>
                   Community Service
                 </h3>
                 <div class="card-tools">
-               
+                </div>
+                <div class="card-tools">
                   <ul class="pagination pagination-sm">
                     <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
                     <li class="page-item"><a href="#" class="page-link">1</a></li>
@@ -364,39 +513,121 @@ include"../users.php";
                 </div>
               </div>
               <!-- /.card-header -->
-        <div class="card-body">
-		<ul class="todo-list" data-widget="todo-list">
-		<li>
-		<div class="card-body">
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <input type="checkbox" id="todoCheck" name="commserv[]" value="Winter Clothing Drive">Winter Clothing Drive (11/3-11/15)<br/>
-            <input type="checkbox" id="todoCheck" name="commserv[]" value="Clean a Side Walk">Clean a Side Walk<br/>
-            <input type="checkbox" id="todoCheck" name="commserv[]" value="STEM Mentorship Program">STEM Mentorship Program<br/>
-            <input type="checkbox" id="todoCheck" name="commserv[]" value="Breast Cancer Walk">Breast Cancer Walk<br/>
-            <input type="checkbox" id="todoCheck" name="commserv[]" value="Children's Book Reading">Children's Book Reading<br/>
-			<input type="checkbox" id="todoCheck" name="commserv[]" value="Food Pantry Drive">Food Pantry Drive<br/>
-			
-            
-            <br/><br/>
-            <input type='submit' name="submit3" value='+Add Event' onclick='btnClick();' class="return mess();">
-			<script type ="text/javascript">
-			function mess() {
-   alert(" Your event was added");
-   return true;
-}
-</script>
-        </form>
-    </div> <!-- /container -->
-</li>
- </ul>
-</div> <!-- /.Left col -->
+              <div class="card-body">
+                <ul class="todo-list" data-widget="todo-list">
+                  <li>
+                    <!-- drag handle -->
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <!-- checkbox -->
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                      <label for="todoCheck1"></label>
+                    </div>
+                    <!-- todo text -->
+                    <a href= "https://www.instagram.com/p/B4Vg8I2H9bU/?igshid=e7zlo05st7jv"> Winter Clothing Drive (11/3-11/15)</a>
+                    <!-- Emphasis label -->
+                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                    <!-- General tools such as edit or delete-->
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo2" id="todoCheck2">
+                      <label for="todoCheck2"></label>
+                    </div>
+                    <span class="text">Clean a Side Walk</span>
+                    <small class="badge badge-info"><i class="far fa-clock"></i> 5 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
+                    </div>
+                    <span class="text">STEM Mentorship Program</span>
+                    <small class="badge badge-warning"><i class="far fa-clock"></i> 10 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo4" id="todoCheck4">
+                      <label for="todoCheck4"></label>
+                    </div>
+                    <span class="text">Breast Cancer Walk</span>
+                    <small class="badge badge-success"><i class="far fa-clock"></i> 15 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo5" id="todoCheck5">
+                      <label for="todoCheck5"></label>
+                    </div>
+                    <span class="text">Children's Book Reading</span>
+                    <small class="badge badge-primary"><i class="far fa-clock"></i> 20 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo6" id="todoCheck6">
+                      <label for="todoCheck6"></label>
+                    </div>
+                    <span class="text">Food Pantry Drive</span>
+                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 30 mins</small>
+                    <div class="tools">
+                      <i class="far fa-share-alt"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+          </section>
+
+
+          <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-         </ul>
-          <!-- Buddy List -->
-           <div class="card-body">
+          <section class="col-lg-5 connectedSortable">
+
+            <!-- Buddy List -->
+            <div class="card">
               <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-cloud mr-1"></i>
                 <h3 class="card-title">
                   <i class="fas fa-list-ul mr-1"></i>
                   Buddy List
