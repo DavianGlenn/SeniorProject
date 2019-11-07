@@ -1,27 +1,5 @@
 <?php
 include"../users.php";
- if(isset($_POST["submit1"])){
-        $interestarr=$_POST["academics"];
-         $newvalues=  implode(",", $interestarr);
-		 include_once 'php/academics.php';
-		$checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase($newvalues);
-		  }
-	if(isset($_POST["submit2"])){
-        $interestarr=$_POST["social"];
-        $newvalues=  implode(",", $interestarr);
-        include_once 'php/social.php';
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase($newvalues);
-    }
-		if(isset($_POST["submit3"])){
-			$interestarr=$_POST["commserv"];
-			$newvalues=  implode(",", $interestarr);
-			include_once 'php/communityservice.php';
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase($newvalues);
-    }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -282,7 +260,13 @@ include"../users.php";
                   <li>
                    
                     <!-- checkbox -->
-			<div class="card-body">
+			<div class="card-body"><?php if(isset($_POST["submit1"])){
+		$interestarr=$_POST["academics"];
+		 $newvalues=  implode(",", $interestarr);
+		 include_once 'php/academics.php';
+		 $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase($newvalues);
+	} ?>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
               <input type="checkbox" id="academics" name="academics[]" value="Study Blitz with the Royal Court"> Study Blitz with the Royal Court (11/03)</br>
             <br><input type="checkbox" id="academics" name="academics[]" value="Midwest Study Sessions">Midwest Study Sessions (11/03)</br>
@@ -323,7 +307,13 @@ include"../users.php";
               <div class="card-body">
                 <ul class="todo-list" data-widget="todo-list">
                   <li>
-         <div class="card-body">
+         <div class="card-body"> <?php if(isset($_POST["submit2"])){
+        $interestarr=$_POST["social"];
+        $newvalues=  implode(",", $interestarr);
+        include_once 'php/social.php';
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase($newvalues);
+    }?>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             <input type="checkbox" id="todoCheck[]" name="social[]" value="Aggies at the Apollo Auditions">Aggies at the Apollo Auditions (11/1-11/2)<br/>
             <input type="checkbox" id="todoCheck[]" name="social[]" value="A Night of Terror Haunted Festival">A Night of Terror Haunted Festival (10/31)<br/>
@@ -367,7 +357,14 @@ include"../users.php";
         <div class="card-body">
 		<ul class="todo-list" data-widget="todo-list">
 		<li>
-		<div class="card-body">
+		<div class="card-body"><?php if(isset($_POST["submit3"])){
+			$interestarr=$_POST["commserv"];
+			$newvalues=  implode(",", $interestarr);
+			include_once 'php/communityservice.php';
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase($newvalues);
+			
+		}?>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             <input type="checkbox" id="todoCheck" name="commserv[]" value="Winter Clothing Drive">Winter Clothing Drive (11/3-11/15)<br/>
             <input type="checkbox" id="todoCheck" name="commserv[]" value="Clean a Side Walk">Clean a Side Walk<br/>
