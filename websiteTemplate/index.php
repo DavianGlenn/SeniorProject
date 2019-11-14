@@ -1,4 +1,6 @@
-<?php  require "../Login.php" ?>
+<?php
+include"../users.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,10 +85,12 @@
           <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a><?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
+          <a> <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
         </div>
       </div>
 
+
+      
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -98,7 +102,7 @@
              Dashboard
 
             </p>
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="pages/calendar.php" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Calendar
@@ -129,13 +133,12 @@
               </li>
             </ul>
           </li>
-		  <a href="../Logout/logout.php" class="nav-link active">
+		  <a href="../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
              Logout
-              <span class="badge badge-info right">0</span>
+              <span class="badge badge-info right"></span>
             </p>
-
 
       <!-- /.sidebar-menu -->
     </div>
@@ -154,7 +157,6 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Home Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -203,7 +205,7 @@
               <div class="inner">
                 <h3>44</h3>
 
-                <p>Work</p>
+                <p>Community Service</p>
               </div>
               <div class="icon">
                 <i class=" fa fa-money"></i>
@@ -218,10 +220,10 @@
               <div class="inner">
                 <h3>65</h3>
 
-                <p>Personal</p>
+                <p>Career Opportunities</p>
               </div>
               <div class="icon">
-                <i class="fa fa-user-secret"></i>
+                <i class="fa fa-briefcase"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -234,47 +236,167 @@
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
+            <!-- Academics List -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas  fa-area-chart mr-1"></i>
-                  Student Engagement
+                  <i class="fas fa-graduation-cap mr-1"></i>
+                  Academics
                 </h3>
+
                 <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Detail</a>
-                    </li>
+                  <ul class="pagination pagination-sm">
+                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
                   </ul>
                 </div>
-              </div><!-- /.card-header -->
+              </div>
+              <!-- /.card-header -->
               <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
-                </div>
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-
-            <!-- EventFeed List -->
-            <div class="card">
+                <ul class="todo-list" data-widget="todo-list">
+                  <li>
+                   
+                    <!-- checkbox -->
+			<div class="card-body"><?php if(isset($_POST["submit1"])){
+		$interestarr=$_POST["academics"];
+		 $newvalues=  implode(",", $interestarr);
+		 include_once 'php/academics.php';
+		 $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase($newvalues);
+	} ?>
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+              <input type="checkbox" id="academics" name="academics[]" value="Study Blitz with the Royal Court"> Study Blitz with the Royal Court (11/03)</br>
+            <br><input type="checkbox" id="academics" name="academics[]" value="Midwest Study Sessions">Midwest Study Sessions (11/03)</br>
+            <br><input type="checkbox" id="academics" name="academics[]" value="Supplemental Instruction">Supplemental Instruction (11/03)</br>
+            <br><input type="checkbox" id="academics" name="academics[]" value="ACCT 221-Suppl. Instruction">ACCT 221-Suppl. Instruction (11/03)</br>
+            <br><input type="checkbox" id="academics" name="academics[]" value="Student Athletes Study Hall">Student Athletes Study Hall (11/03)</br>
+			 <br><input type="checkbox" id="academics" name="academics[]" value="Student Athletes Study Hall">	Supplemental Instruction- Finance (11/03)</br>
+            <br/>
+            <input type='submit'name="submit1" value='+Add Event' onclick='btnClick();' class="return mess();">
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+    </div> <!-- /container -->
+</div>
+            <!-- Social List -->
+            <div class="card- body">
               <div class="card-header">
                 <h3 class="card-title">
+                  <i class="fas fa-users mr-1"></i>
+                  Social
+                </h3>
+
+                <div class="card-tools">
+                  <ul class="pagination pagination-sm">
+                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <ul class="todo-list" data-widget="todo-list">
+                  <li>
+         <div class="card-body"> <?php if(isset($_POST["submit2"])){
+        $interestarr=$_POST["social"];
+        $newvalues=  implode(",", $interestarr);
+        include_once 'php/social.php';
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase($newvalues);
+    }?>
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+            <input type="checkbox" id="todoCheck[]" name="social[]" value="Aggies at the Apollo Auditions">Aggies at the Apollo Auditions (11/1-11/2)<br/>
+            <input type="checkbox" id="todoCheck[]" name="social[]" value="A Night of Terror Haunted Festival">A Night of Terror Haunted Festival (10/31)<br/>
+            <input type="checkbox" id="todoCheck[]" name="social[]" value="Laugh out Loud">Laugh out Loud (10/30)<br/>
+            <input type="checkbox" id="todoCheck[]" name="social[]" value="Game Night">Game Night (10/05)<br/>
+            <input type="checkbox" id="todoCheck[]" name="social[]" value="Aggie Bazaar">Aggie Bazaar (09/20)<br/>
+			<input type="checkbox" id="todoCheck[]" name="social[]" value="Aggie Pregame">Aggie Pregame (09/26)<br/>
+            
+            <br/><br/>
+           <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+    </div> 
+	</div>
+	</div>
+	<!-- /container -->
+            <!-- /.card -->
+            <div class="card-body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-cloud mr-1"></i>
+                  Community Service
+                </h3>
+                <div class="card-tools">
+               
+                  <ul class="pagination pagination-sm">
+                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /.card-header -->
+        <div class="card-body">
+		<ul class="todo-list" data-widget="todo-list">
+		<li>
+		<div class="card-body"><?php if(isset($_POST["submit3"])){
+			$interestarr=$_POST["commserv"];
+			$newvalues=  implode(",", $interestarr);
+			include_once 'php/communityservice.php';
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase($newvalues);
+			
+		}?>
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+            <input type="checkbox" id="todoCheck" name="commserv[]" value="Winter Clothing Drive">Winter Clothing Drive (11/3-11/15)<br/>
+            <input type="checkbox" id="todoCheck" name="commserv[]" value="Clean a Side Walk">Clean a Side Walk<br/>
+            <input type="checkbox" id="todoCheck" name="commserv[]" value="STEM Mentorship Program">STEM Mentorship Program<br/>
+            <input type="checkbox" id="todoCheck" name="commserv[]" value="Breast Cancer Walk">Breast Cancer Walk<br/>
+            <input type="checkbox" id="todoCheck" name="commserv[]" value="Children's Book Reading">Children's Book Reading<br/>
+			<input type="checkbox" id="todoCheck" name="commserv[]" value="Food Pantry Drive">Food Pantry Drive<br/>
+			
+            
+            <br/><br/>
+            <input type='submit' name="submit3" value='+Add Event' onclick='btnClick();' class="return mess();">
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+    </div> <!-- /container -->
+</li>
+ </ul>
+</div> <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+         </ul>
+          <!-- Buddy List -->
+           <div class="card-body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-cloud mr-1"></i>
+                <h3 class="card-title">
                   <i class="fas fa-list-ul mr-1"></i>
-                  
-				  
-				  
+                  Buddy List
                 </h3>
 
                 <div class="card-tools">
@@ -303,8 +425,6 @@
                     </div>
                     <!-- todo text -->
                     <span class="text">Isaac Cho</span>
-                    <!-- Emphasis label -->
-                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
                     <!-- General tools such as edit or delete-->
                     <div class="tools">
                       <i class="far fa-envelope"></i>
@@ -317,11 +437,10 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </span>
                     <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo2" id="todoCheck2" >
+                      <input type="checkbox" value="" name="todo2" id="todoCheck2">
                       <label for="todoCheck2"></label>
                     </div>
                     <span class="text">Davian Glenn</span>
-                    <small class="badge badge-info"><i class="far fa-clock"></i> 5 mins</small>
                     <div class="tools">
                       <i class="far fa-envelope"></i>
                       <i class="fas fa-trash-o"></i>
@@ -337,7 +456,6 @@
                       <label for="todoCheck3"></label>
                     </div>
                     <span class="text">Bria Massey</span>
-                    <small class="badge badge-warning"><i class="far fa-clock"></i> 10 mins</small>
                     <div class="tools">
                       <i class="far fa-envelope"></i>
                       <i class="fas fa-trash-o"></i>
@@ -353,7 +471,6 @@
                       <label for="todoCheck4"></label>
                     </div>
                     <span class="text">Rahiem Thompson</span>
-                    <small class="badge badge-success"><i class="far fa-clock"></i> 15 mins</small>
                     <div class="tools">
                       <i class="far fa-envelope"></i>
                       <i class="fas fa-trash-o"></i>
@@ -369,7 +486,6 @@
                       <label for="todoCheck5"></label>
                     </div>
                     <span class="text">Danielle Jenkins</span>
-                    <small class="badge badge-primary"><i class="far fa-clock"></i> 20 mins</small>
                     <div class="tools">
                       <i class="far fa-envelope"></i>
                       <i class="fas fa-trash-o"></i>
@@ -385,7 +501,6 @@
                       <label for="todoCheck6"></label>
                     </div>
                     <span class="text">Kelvin Bryant</span>
-                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 30 mins</small>
                     <div class="tools">
                       <i class="far fa-envelope"></i>
                       <i class="fas fa-trash-o"></i>
@@ -393,185 +508,6 @@
                   </li>
                 </ul>
               </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add event</button>
-              </div>
-            </div>
-            <!-- /.card -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-cloud mr-1"></i>
-                  Word Cloud
-                </h3>
-                <div class="card-tools">
-                </div>
-            <img src="Screen Shot 2019-10-23 at 8.49.49 AM.png" alt="NCAT Word Cloud" width="100%" height="400">
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
-
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Aggies Worldwide
-                </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button"
-                          class="btn btn-primary btn-sm daterange"
-                          data-toggle="tooltip"
-                          title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                  <button type="button"
-                          class="btn btn-primary btn-sm"
-                          data-card-widget="collapse"
-                          data-toggle="tooltip"
-                          title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
-              </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Average</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Median</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Range</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-            </div>
-            <!-- /.card -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Personal Engagement
-                </h3>
-
-            <!-- Data Viz graphs  -->
-            <!-- Code from d3-graph-gallery.com -->
-            <!DOCTYPE html>
-            <meta charset="utf-8">
-
-            <!-- Load d3.js -->
-            <script src="https://d3js.org/d3.v4.js"></script>
-            <script src="d3.legend.js"></script>
-
-            <!-- Color scale -->
-            <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
-            <!-- Add 2 buttons -->
-			<table width=100%>
-			<td><button onclick= "update(data1)" type="button" class="btn btn-info float-center"> Current Day</button></td>
-            <td><button onclick= "update(data2)" type="button" class="btn btn-info float-left"> Week of 10/20/2019</button></td>
-            <td><button onclick= "update(data3)" type="button" class="btn btn-info float-left"> Month of October</button></tr></td>
-			</table>
-            <!-- Create a div where the graph will take place -->
-            <div id="my_dataviz"></div>
-
-
-            <script>
-
-            // set the dimensions and margins of the graph
-            var width = 350
-                height = 350
-                margin = 30
-
-            // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-            var radius = Math.min(width, height) / 2 - margin
-
-            // append the svg object to the div called 'my_dataviz'
-            var svg = d3.select("#my_dataviz")
-              .append("svg")
-                .attr("width", width)
-                .attr("height", height)
-              .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-            // create 2 data_set
-            var data1 = {a: 9, b: 20, c:30, d:8}
-            var data2 = {a: 6, b: 16, c:20, d:14}
-            var data3 = {a: 10, b:15, c:40, d:35}
-
-            // set the color scale
-            var color = d3.scaleOrdinal()
-              .domain(["a", "b", "c", "d", "e", "f"])
-              .range(d3.schemeDark2);
-
-            // A function that create / update the plot for a given variable:
-            function update(data) {
-
-              // Compute the position of each group on the pie:
-              var pie = d3.pie()
-                .value(function(d) {return d.value; })
-                .sort(function(a, b) { console.log(a) ; return d3.ascending(a.key, b.key);} ) // This make sure that group order remains the same in the pie chart
-              var data_ready = pie(d3.entries(data))
-
-              // map to data
-              var u = svg.selectAll("path")
-                .data(data_ready)
-
-              // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-              u
-                .enter()
-                .append('path')
-                .merge(u)
-                .transition()
-                .duration(1000)
-                .attr('d', d3.arc()
-                  .innerRadius(0)
-                  .outerRadius(radius)
-                )
-                .attr('fill', function(d){ return(color(d.data.key)) })
-                .attr("stroke", "white")
-                .style("stroke-width", "2px")
-                .style("opacity", 1)
-
-              // remove the group that is not present anymore
-              u
-                .exit()
-                .remove()
-
-            }
-
-            // Initialize the plot with the first dataset
-            update(data1)
-
-            </script>
-
-
-            <!-- Word Cloud -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-feed mr-1"></i>
-                  Social Wall
-                </h3>
-                <div class="card-tools">
-  <div class='sk-ww-twitter-hashtag-feed' data-embed-id='29955'></div><script src='https://www.sociablekit.com/app/embed/twitter-hashtag-feed/widget.js'></script>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
