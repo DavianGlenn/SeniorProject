@@ -1,4 +1,8 @@
-<?php  require "../Login.php" ?>
+<?php
+include"../users.php";
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +29,8 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+  <!-- Table Style -->
+  <link rel="stylesheet" href="../css/tables.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -83,10 +89,12 @@
           <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a><?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
+          <a> <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
         </div>
       </div>
 
+
+      
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -98,7 +106,7 @@
              Dashboard
 
             </p>
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="pages/calendar.php" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Calendar
@@ -106,36 +114,13 @@
               </p>
             </a>
           </a>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Mailbox
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Compose</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-		  <a href="../Logout/logout.php" class="nav-link active">
+         
+		  <a href="../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
              Logout
-              <span class="badge badge-info right">0</span>
+              <span class="badge badge-info right"></span>
             </p>
-
 
       <!-- /.sidebar-menu -->
     </div>
@@ -154,7 +139,6 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Home Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -171,14 +155,16 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3></h3>
+
+
 
                 <p>Academics</p>
               </div>
               <div class="icon">
                 <i class=" fas fa-graduation-cap"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="php/academicEventsList.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -186,14 +172,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px"></sup></h3>
+                <h3><sup style="font-size: 20px"></sup></h3>
 
                 <p>Social</p>
               </div>
               <div class="icon">
                 <i class="fa fa-users"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="php/socialEventList.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -201,14 +187,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3></h3>
 
-                <p>Work</p>
+                <p>Community Service</p>
               </div>
               <div class="icon">
                 <i class=" fa fa-money"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="php/csEventList.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -216,378 +202,405 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3></h3>
 
-                <p>Personal</p>
+                <p>Career Opportunities</p>
               </div>
               <div class="icon">
-                <i class="fa fa-user-secret"></i>
+                <i class="fa fa-briefcase"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="https://ncat-csm.symplicity.com/students/?signin_tab=0" class="small-box-footer">Aggie Link <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
         </div>
         <!-- /.row -->
         <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
+      
+            <!-- Social List -->
+            <div class="card- body">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas  fa-area-chart mr-1"></i>
-                  Student Engagement
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Detail</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
-                </div>
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                  <i class="fas fa-users mr-1"></i>
+				Academic                </h3>
 
-
-            <!-- EventFeed List -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-list-ul mr-1"></i>
-                  
-				  
-				  
-                </h3>
-
-                <div class="card-tools">
-                  <ul class="pagination pagination-sm">
-                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                  </ul>
-                </div>
+              
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+			
+			  
                 <ul class="todo-list" data-widget="todo-list">
                   <li>
-                    <!-- drag handle -->
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <!-- checkbox -->
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                      <label for="todoCheck1"></label>
-                    </div>
-                    <!-- todo text -->
-                    <span class="text">Isaac Cho</span>
-                    <!-- Emphasis label -->
-                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                    <!-- General tools such as edit or delete-->
-                    <div class="tools">
-                      <i class="far fa-envelope"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo2" id="todoCheck2" >
-                      <label for="todoCheck2"></label>
-                    </div>
-                    <span class="text">Davian Glenn</span>
-                    <small class="badge badge-info"><i class="far fa-clock"></i> 5 mins</small>
-                    <div class="tools">
-                      <i class="far fa-envelope"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                      <label for="todoCheck3"></label>
-                    </div>
-                    <span class="text">Bria Massey</span>
-                    <small class="badge badge-warning"><i class="far fa-clock"></i> 10 mins</small>
-                    <div class="tools">
-                      <i class="far fa-envelope"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                      <label for="todoCheck4"></label>
-                    </div>
-                    <span class="text">Rahiem Thompson</span>
-                    <small class="badge badge-success"><i class="far fa-clock"></i> 15 mins</small>
-                    <div class="tools">
-                      <i class="far fa-envelope"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                      <label for="todoCheck5"></label>
-                    </div>
-                    <span class="text">Danielle Jenkins</span>
-                    <small class="badge badge-primary"><i class="far fa-clock"></i> 20 mins</small>
-                    <div class="tools">
-                      <i class="far fa-envelope"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                      <label for="todoCheck6"></label>
-                    </div>
-                    <span class="text">Kelvin Bryant</span>
-                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 30 mins</small>
-                    <div class="tools">
-                      <i class="far fa-envelope"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                </ul>
+         <div class="card-body"> 
+			<?php 
+			
+		
+		 
+		 //First Check box
+		 if(isset($_POST["academics"])){
+			  include_once 'php/academics.php';
+			  $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase();
+		
+		 }
+		
+		//Second Chek box
+		 if(isset($_POST["academics2"])){
+			  include_once 'php/academics.php';
+			  $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase2();
+		 }
+		
+		//Third check box
+		 if(isset($_POST["academics3"])){
+			  include_once 'php/academics.php';
+			  $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase3();
+		 }
+		//Fourth Check box
+		if(isset($_POST["academics4"])){
+			 include_once 'php/academics.php';
+			 $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase4();
+	}
+		if(isset($_POST["academics5"])){
+			 include_once 'php/academics.php';
+			 $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase5();
+	}
+	
+	if(isset($_POST["academics6"])){
+		 include_once 'php/academics.php';
+		 $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->addtoDatabase6();
+	}
+		
+		
+	
+	
+
+	?>
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+              <table>
+			  <tr>
+      <th>Select Event(s)</th>
+      <th data-th="Driver details"><span>Event Name</span></th>
+      <th>Event Location</th>
+      <th>Date</th>
+      <th>Time</th>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="academics" value="Study Blitz with the Royal Court "></td>
+      <td>Study Blitz with the Royal Court</td>
+      <td>NCAT Student Center</td>
+      <td>11/07/2019</td>
+      <td>1PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="academics2" value="A Night of Terror Haunted Festival" ></td>
+      <td>Midwest Study Sessions</td>
+      <td>Bluford Library</td>
+      <td>11/19/2019</td>
+      <td>7PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="academics3" value="Laugh out Loud" ></td>
+      <td>Supplemental Instruction</td>
+      <td>Bluford Library</td>
+      <td>11/26/2019</td>
+      <td>6PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="academics4" value="Game Night" ></td>
+      <td>ACCT 221-Suppl. Instruction</td>
+      <td>Craig Hall</td>
+      <td>11/12/2019</td>
+      <td>2PM</td>
+    </tr>
+	
+	 <tr>
+      <td><input type="Checkbox"/ name="academics5" value="Aggie Bazaar" ></td>
+      <td>Student Athletes Study Hall</td>
+      <td>Academic Classroom Building</td>
+      <td>11/13/2019</td>
+      <td>6PM</td>
+    </tr>
+	
+	 <tr>
+      <td><input type="Checkbox"/ name="academics6" value="Aggie Pregame" ></td>
+      <td>Supplemental Instruction- Finance</td>
+      <td>Craig Hall</td>
+      <td>11/02/2019</td>
+      <td>2PM</td>
+    </tr>
+    
+  </table>
+           
+			 <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+    </div> <!-- /container -->
+</div>
+            <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-users mr-1"></i>
+                  Social
+                </h3>
+
+              
               </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add event</button>
+              <!-- /.card-header -->
+              <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                  <li>
+         <div class="card-body"> <?php 
+		  include_once 'php/social.php';
+		 if(isset($_POST["Social"])){
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase();
+		}
+		
+		if(isset($_POST["Social2"])){
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase2();
+		}
+		if(isset($_POST["Social3"])){
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase3();
+		}
+		if(isset($_POST["Social4"])){
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase4();
+		}
+		if(isset($_POST["Social5"])){
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase5();
+		}
+		if(isset($_POST["Social6"])){
+        $checkBoxClass=new socialclass();
+        echo $checkBoxClass->addtoDatabase6();
+		}
+		
+		?>
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+              <table>
+			  <tr>
+      <th>Select Event(s)</th>
+      <th data-th="Driver details"><span>Event Name</span></th>
+      <th>Event Location</th>
+      <th>Date</th>
+      <th>Time</th>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="Social" value="Aggies at the Apollo Auditions"></td>
+      <td>Aggies at the Apollo Auditions</td>
+      <td>Paul Roberson Theatre</td>
+      <td>11/20/2019</td>
+      <td>5PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="Social2" value="A Night of Terror Haunted Festival" ></td>
+      <td>A Night of Terror Haunted Festival</td>
+      <td>Merrick Hall</td>
+      <td>11/01/2019</td>
+      <td>7PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="Social3" value="Laugh out Loud" ></td>
+      <td>Laugh out Loud</td>
+      <td>Corbett Sports Center</td>
+      <td>11/23/2019</td>
+      <td>7PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="Social4" value="Game Night" ></td>
+      <td>Game Night</td>
+      <td>NCAT Student Center</td>
+      <td>11/30/2019</td>
+      <td>6PM</td>
+    </tr>
+	
+	 <tr>
+      <td><input type="Checkbox"/ name="Social5" value="Aggie Bazaar" ></td>
+      <td>Aggie Bazaar</td>
+      <td>Park and Ride Lot</td>
+      <td>11/25/2019</td>
+      <td>1PM</td>
+    </tr>
+	
+	 <tr>
+      <td><input type="Checkbox"/ name="Social6" value="Aggie Pregame" ></td>
+      <td>Aggie Pregame</td>
+      <td>Corbett Sports Center</td>
+      <td>11/24/2019</td>
+      <td>4PM</td>
+    </tr>
+    
+  </table>
+           <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+    </div> 
+	</div>
+	</div>
+   <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-users mr-1"></i>
+				Community Service
+                </h3>
+
+              
               </div>
-            </div>
-            <!-- /.card -->
-            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                  <li>
+         <div class="card-body"> <?php 
+		include_once 'php/communityservice.php';
+			if(isset($_POST["commserv"])){
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase();
+		}
+		
+		if(isset($_POST["commserv2"])){
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase2();
+		}
+		
+		if(isset($_POST["commserv3"])){
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase3();
+		}
+		
+		if(isset($_POST["commserv4"])){
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase4();
+		}
+		
+		if(isset($_POST["commserv5"])){
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase5();
+		}
+		
+		if(isset($_POST["commserv6"])){
+			$checkBoxClass=new csclass();
+			echo $checkBoxClass->addtoDatabase6();
+		}
+		?>
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+           <table>
+		   <tr>
+      <th>Select Event(s)</th>
+      <th data-th="Driver details"><span>Event Name</span></th>
+      <th>Event Location</th>
+      <th>Date</th>
+      <th>Time</th>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="commserv" value="Winter Clothing Drive"></td>
+      <td>Winter Clothing Drive</td>
+      <td>Student Center</td>
+      <td>11/03/2019</td>
+      <td>6PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="commserv2" value="Clean A Side Walk" ></td>
+      <td>Clean a Side Walk</td>
+      <td>Gibbs Hall</td>
+      <td>11/03/2019</td>
+      <td>4PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="commserv3" value="STEM Mentorship Program" ></td>
+      <td>STEM Mentorship Program</td>
+      <td>McCain Hall</td>
+      <td>11/15/2019</td>
+      <td>5PM</td>
+    </tr>
+    
+    <tr>
+      <td><input type="Checkbox"/ name="commserv4" value="Breast Cancer Walk" ></td>
+      <td>Breast Cancer Walk</td>
+      <td>Corbett Sports Center</td>
+      <td>11/07/2019</td>
+      <td>7PM</td>
+    </tr>
+	
+	 <tr>
+      <td><input type="Checkbox"/ name="commserv5" value="Children's Book Reading" ></td>
+      <td>Children's Book Reading</td>
+      <td>Child Development Laboratory</td>
+      <td>11/08/2019</td>
+      <td>3PM</td>
+    </tr>
+	
+	 <tr>
+      <td><input type="Checkbox"/ name="commserv6" value="Food Pantry Drive" ></td>
+      <td>Food Pantry Drive</td>
+      <td>Williams Dining Hall</td>
+      <td>11/18/2019</td>
+      <td>2PM</td>
+    </tr>
+    
+  </table>
+
+            <input type='submit' name="submit3" value='+Add Event' onclick='btnClick();' class="return mess();">
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+    </div> <!-- /container -->
+</li>
+ </ul>
+</div> <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+         </ul>
+          <!-- Buddy List -->
+           <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-cloud mr-1"></i>
-                  Word Cloud
-                </h3>
-                <div class="card-tools">
-                </div>
-            <img src="Screen Shot 2019-10-23 at 8.49.49 AM.png" alt="NCAT Word Cloud" width="100%" height="400">
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
-
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
                 <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Aggies Worldwide
+                  <i class="fas fa-list-ul mr-1"></i>
+                  Buddy List
                 </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button"
-                          class="btn btn-primary btn-sm daterange"
-                          data-toggle="tooltip"
-                          title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                  <button type="button"
-                          class="btn btn-primary btn-sm"
-                          data-card-widget="collapse"
-                          data-toggle="tooltip"
-                          title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
-              </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Average</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Median</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Range</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-            </div>
-            <!-- /.card -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Personal Engagement
-                </h3>
-
-            <!-- Data Viz graphs  -->
-            <!-- Code from d3-graph-gallery.com -->
-            <!DOCTYPE html>
-            <meta charset="utf-8">
-
-            <!-- Load d3.js -->
-            <script src="https://d3js.org/d3.v4.js"></script>
-            <script src="d3.legend.js"></script>
-
-            <!-- Color scale -->
-            <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
-            <!-- Add 2 buttons -->
-			<table width=100%>
-			<td><button onclick= "update(data1)" type="button" class="btn btn-info float-center"> Current Day</button></td>
-            <td><button onclick= "update(data2)" type="button" class="btn btn-info float-left"> Week of 10/20/2019</button></td>
-            <td><button onclick= "update(data3)" type="button" class="btn btn-info float-left"> Month of October</button></tr></td>
-			</table>
-            <!-- Create a div where the graph will take place -->
-            <div id="my_dataviz"></div>
-
-
-            <script>
-
-            // set the dimensions and margins of the graph
-            var width = 350
-                height = 350
-                margin = 30
-
-            // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-            var radius = Math.min(width, height) / 2 - margin
-
-            // append the svg object to the div called 'my_dataviz'
-            var svg = d3.select("#my_dataviz")
-              .append("svg")
-                .attr("width", width)
-                .attr("height", height)
-              .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-            // create 2 data_set
-            var data1 = {a: 9, b: 20, c:30, d:8}
-            var data2 = {a: 6, b: 16, c:20, d:14}
-            var data3 = {a: 10, b:15, c:40, d:35}
-
-            // set the color scale
-            var color = d3.scaleOrdinal()
-              .domain(["a", "b", "c", "d", "e", "f"])
-              .range(d3.schemeDark2);
-
-            // A function that create / update the plot for a given variable:
-            function update(data) {
-
-              // Compute the position of each group on the pie:
-              var pie = d3.pie()
-                .value(function(d) {return d.value; })
-                .sort(function(a, b) { console.log(a) ; return d3.ascending(a.key, b.key);} ) // This make sure that group order remains the same in the pie chart
-              var data_ready = pie(d3.entries(data))
-
-              // map to data
-              var u = svg.selectAll("path")
-                .data(data_ready)
-
-              // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-              u
-                .enter()
-                .append('path')
-                .merge(u)
-                .transition()
-                .duration(1000)
-                .attr('d', d3.arc()
-                  .innerRadius(0)
-                  .outerRadius(radius)
-                )
-                .attr('fill', function(d){ return(color(d.data.key)) })
-                .attr("stroke", "white")
-                .style("stroke-width", "2px")
-                .style("opacity", 1)
-
-              // remove the group that is not present anymore
-              u
-                .exit()
-                .remove()
-
-            }
-
-            // Initialize the plot with the first dataset
-            update(data1)
-
-            </script>
-
-
-            <!-- Word Cloud -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-feed mr-1"></i>
-                  Social Wall
-                </h3>
-                <div class="card-tools">
-  <div class='sk-ww-twitter-hashtag-feed' data-embed-id='29955'></div><script src='https://www.sociablekit.com/app/embed/twitter-hashtag-feed/widget.js'></script>
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
+				<div class="card-body">
+		
+	</div>
+	
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
