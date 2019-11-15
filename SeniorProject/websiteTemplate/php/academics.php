@@ -10,7 +10,7 @@ class academicsclass{
 				$check=mysqli_query($conn,"select * from academic where events='Study Blitz with the Royal Court' and userid='{$_SESSION['userid']}'");
          $count = mysqli_num_rows($check);
 		 if($count == 0){
-			 $result = mysqli_query($conn,"Insert into academic (events,Location,Date,Time,userid) values ('Study Blitz with the Royal Court','NCAT Student Center','11/01/2019',1PM,'{$_SESSION['userid']}')");
+			 $result = mysqli_query($conn,"Insert into academic (events,Location,Date,Time,userid) values ('Study Blitz with the Royal Court','NCAT Student Center','11/01/2019','1PM','{$_SESSION['userid']}')");
 
     } 
 	
@@ -166,6 +166,23 @@ echo "</tr>";
 
 
 }
-}
+
+
+public function showCalendar(){
+	$conn = mysqli_connect("localhost","root","","Senior Project");
+	$check=mysqli_query($conn, "SELECT events From academic where academic.userid='{$_SESSION['userid']}'");
+	echo "<table border ='1'>";
+	echo "<tr><td>Here Are The Academic Events You're Attending</td></tr>\n";
+	echo "<table border ='1'>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	while($row=mysqli_fetch_assoc($check))
+	{
+		echo"<tr><td> {$row['events']}</td></tr>\n";
+	}
+	echo "</table>";
+	
+	}
+}666
 
 ?>
+
