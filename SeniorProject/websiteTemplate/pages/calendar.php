@@ -128,31 +128,10 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
               <li class="breadcrumb-item active">Calendar</li>
-			  
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
-	  <div class="checkbox" >
-	  <?php
-//include "../../users.php";
-
-	 include_once '../php/academics.php';
-			 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->showCalendar();
-		
-			include_once '../php/social.php';
-			 $checkBoxClass=new socialclass();
-        echo $checkBoxClass->showCalendar();
-		
-		include_once '../php/communityservice.php';
-			 $checkBoxClass=new csclass();
-        echo $checkBoxClass->showCalendar();
-	
-
-	
-		?>
-	  </div>
     </section>
 
     <!-- Main content -->
@@ -221,7 +200,6 @@
 
 <script src="../plugins/fullcalendar-bootstrap/main.min.js"></script>
 <!-- Page specific script -->
-
 <script>
   $(function () {
 
@@ -379,6 +357,12 @@
     })
   })
 </script>
-
+<?php
+//include "../../users.php";
+$conn = mysqli_connect("localhost","root","","Senior Project");
+		//$sql = "SELECT events From academic where user_account.id=";
+		
+		
+		?>
 </body>
 </html>
