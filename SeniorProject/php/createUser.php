@@ -17,45 +17,30 @@ $password= filter_input(INPUT_POST, 'Password');
 {
     echo "You did not fill out the required fields.";
 	echo  "<meta http-equiv=\"refresh\" content=\"2;url=../register.html\"/>";
-}
+} 
+$check=mysqli_query($con,"select id from user_account where Username=$username and email=$email ");
  
-
-
- 
-
-
-if (!$con){
-    die('Could not connect: ' . mysqli_connect_errno()); //return error is connect fail
-}
-
- if(!empty($firstname) && !empty($lastname) && !empty($username) && !empty($email) && !empty($phonenumber) && !empty($password))
-{
-$query= $con->prepare ( "INSERT INTO user_account (Username, Password,First_Name,Last_Name,email,Phone_Number)
-values ('$username','$password','$firstname','$lastname','$email','$phonenumber')");
+		 if($check == false){
+	$query= $con->prepare ( "INSERT INTO user_account (Username, Password,First_Name,Last_Name,email,Phone_Number) values ('$username','$password','$firstname','$lastname','$email','$phonenumber')");
 $query -> bind_param("ssssss",$username,$password,$firstname,$lastname,$email,$phonenumber);
-$check=mysqli_query($con,"select * from user_account where First_Name='$firstname' and Last_Name='$lastname and Username=$username and Password=$password and email=$email and Phone_Number=$phonenumber'");
- $count = mysqli_num_rows($check);
-		 if($count == 1){
-	echo "This user is already registered please login ";
-	echo "<meta http-equiv=\"refresh\" content=\"2;url=../index.html\"/>";
-}
-
-else if($query->execute()){
+if($query->execute()){
         echo"<center><strong>User added! Now Lets Head To The Hobby Lobby! </strong></center>";
 		$result = mysqli_query($con,"SELECT id, Username FROM user_account WHERE Username='$username' and Password = '$password'");
 		$row = mysqli_fetch_array($result);
 		   $_SESSION['use']=$row[1];
 		   $_SESSION['userid']=$row[0];
 		   echo $_SESSION['use'];
-		echo  "<meta http-equiv=\"refresh\" content=\"2;url=../WebsiteTemplate/hobby.php\"/>";
-    } // display when user is added
+		echo  "<meta http-equiv=\"refresh\" content=\"2;url=../hobbies.html\"/>";
+    }
+}
+ // display when user is added
         else{
-            echo"Error in adding user!"; // display when there is error
-			echo '<a href="../index.html">Click here</a>';
+            echo "This user is already registered please login ";
+	echo "<meta http-equiv=\"refresh\" content=\"2;url=../index.html\"/>";
+
         }
 
 
-}
 
 
 
