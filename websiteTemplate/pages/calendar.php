@@ -1,3 +1,4 @@
+<?php  require "../../Login.php" ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +69,7 @@
       <span class="brand-text font-weight-light">Calendly for students</span>
     </a>
 
-    <!-- Sidebar -->
+    
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -76,9 +77,10 @@
           <img src="../dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Ncat Student</a>
+          <a><?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
         </div>
       </div>
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -99,29 +101,7 @@
               </p>
             </a>
           </a>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Mailbox
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Compose</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          
 		  <a href="../../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -142,7 +122,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Calendar</h1>
+             <h1>Academic Calendar</h1> 
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -208,8 +188,6 @@
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- jQuery UI -->
-<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -219,7 +197,7 @@
 <script src="../plugins/fullcalendar/main.min.js"></script>
 <script src="../plugins/fullcalendar-daygrid/main.min.js"></script>
 <script src="../plugins/fullcalendar-timegrid/main.min.js"></script>
-<script src="../plugins/fullcalendar-interaction/main.min.js"></script>
+
 <script src="../plugins/fullcalendar-bootstrap/main.min.js"></script>
 <!-- Page specific script -->
 <script>
@@ -240,11 +218,7 @@
         $(this).data('eventObject', eventObject)
 
         // make the event draggable using jQuery UI
-        $(this).draggable({
-          zIndex        : 1070,
-          revert        : true, // will cause the event to go back to its
-          revertDuration: 0  //  original position after the drag
-        })
+        
 
       })
     }
@@ -260,7 +234,7 @@
         y    = date.getFullYear()
 
     var Calendar = FullCalendar.Calendar;
-    var Draggable = FullCalendarInteraction.Draggable;
+    
 
     var containerEl = document.getElementById('external-events');
     var checkbox = document.getElementById('drop-remove');
@@ -269,21 +243,10 @@
     // initialize the external events
     // -----------------------------------------------------------------
 
-    new Draggable(containerEl, {
-      itemSelector: '.external-event',
-      eventData: function(eventEl) {
-        console.log(eventEl);
-        return {
-          title: eventEl.innerText,
-          backgroundColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
-          borderColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
-          textColor: window.getComputedStyle( eventEl ,null).getPropertyValue('color'),
-        };
-      }
-    });
+
 
     var calendar = new Calendar(calendarEl, {
-      plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
       header    : {
         left  : 'prev,next today',
         center: 'title',
@@ -292,46 +255,50 @@
       //Random default events
       events    : [
         {
-          title          : 'All Day Event',
-          start          : new Date(y, m, 1),
+          title          : 'Study Blitz',
+          start          : new Date(y, m, 7,13),
+		   allDay         : false,
+		  url 			 : 'http://google.com/',
           backgroundColor: '#f56954', //red
           borderColor    : '#f56954' //red
         },
         {
-          title          : 'Long Event',
-          start          : new Date(y, m, d - 5),
-          end            : new Date(y, m, d - 2),
+          title          : 'Midwest Study Blitz',
+          start          : new Date(y, m, 19,19),
+		   allDay         : false,
+		   url 			 : 'http://google.com/',
           backgroundColor: '#f39c12', //yellow
           borderColor    : '#f39c12' //yellow
         },
         {
-          title          : 'Meeting',
-          start          : new Date(y, m, d, 10, 30),
+          title          : 'Supplemental Instruction',
+          start          : new Date(y, m, 26,18),
           allDay         : false,
+		  url 			 : 'http://google.com/',
           backgroundColor: '#0073b7', //Blue
           borderColor    : '#0073b7' //Blue
         },
         {
-          title          : 'Lunch',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
+          title          : 'ACCT 221-Suppl. Instruction',
+          start          : new Date(y, m,12, 14),
           allDay         : false,
+		   url 			 : 'http://google.com/',
           backgroundColor: '#00c0ef', //Info (aqua)
           borderColor    : '#00c0ef' //Info (aqua)
         },
         {
-          title          : 'Birthday Party',
-          start          : new Date(y, m, d + 1, 19, 0),
-          end            : new Date(y, m, d + 1, 22, 30),
+          title          : 'Student Athletes Study Hall',
+          start          : new Date(y, m,13,18),
+		   url 			 : 'http://google.com/',
           allDay         : false,
           backgroundColor: '#00a65a', //Success (green)
           borderColor    : '#00a65a' //Success (green)
         },
         {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
+          title          : 'Finance Supplemental',
+          start          : new Date(y, m, 2,14),
+          url 			 : 'http://google.com/',
+          allDay         : false,
           backgroundColor: '#3c8dbc', //Primary (light-blue)
           borderColor    : '#3c8dbc' //Primary (light-blue)
         }
@@ -383,12 +350,19 @@
       $('#external-events').prepend(event)
 
       //Add draggable funtionality
-      ini_events(event)
+      
 
       //Remove event from text input
       $('#new-event').val('')
     })
   })
 </script>
+<?php
+//include "../../users.php";
+$conn = mysqli_connect("localhost","root","","Senior Project");
+		//$sql = "SELECT events From academic where user_account.id=";
+		
+		
+		?>
 </body>
 </html>

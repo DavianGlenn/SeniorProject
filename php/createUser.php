@@ -6,7 +6,10 @@ $username = filter_input(INPUT_POST, 'Username');
 $email = filter_input(INPUT_POST, 'Email');
 $phonenumber = filter_input(INPUT_POST, 'Phone_Number');
 $password= filter_input(INPUT_POST, 'Password');
- 
+ if(empty($firstname) || empty($lastname) || empty($username) || empty($email)|| empty($phonenumber)|| empty($password))
+{
+    echo "You did not fill out the required fields.";
+}
  
 $host = "localhost";
 $dbusername = "root";
@@ -27,14 +30,21 @@ else{
 $query= $con->prepare ( "INSERT INTO user_account (Username, Password,First_Name,Last_Name,email,Phone_Number)
 values ('$username','$password','$firstname','$lastname','$email','$phonenumber')");
 $query -> bind_param("ssssss",$username,$password,$firstname,$lastname,$email,$phonenumber);
-if ($query->execute()){
+$check=mysqli_query($con,"select * from user_account where First_Name='$firstname' and Last_Name='$lastname and Username=$username and Password=$password and email=$email and Phone_Number=$phonenumber'");
+
+if ($check==0){
+	echo "This user is already registered please login ";
+	echo "<meta http-equiv=\"refresh\" content=\"2;url=../index.html\"/>";
+}
+
+else if($query->execute()){
         echo"<center><strong>User added! </strong></center>";
 		echo '<a href="../index.html">Click here</a>';
     } // display when user is added
         else{
             echo"Error in adding user!"; // display when there is error
+			echo '<a href="../index.html">Click here</a>';
         }
-
 
 
 
