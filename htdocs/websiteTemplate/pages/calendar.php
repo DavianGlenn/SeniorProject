@@ -1,4 +1,5 @@
-<?php  require "../../Login.php" ?>
+<?php  require "../../Login.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,6 +102,12 @@
               </p>
             </a>
           </a>
+		   <a href="../hobby.php" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+            Hobby Lobby
+
+            </p>
           
 		  <a href="../../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -126,7 +133,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../index.php">Home</a>
               <li class="breadcrumb-item active">Calendar</li>
 			  
             </ol>
@@ -135,19 +142,21 @@
       </div><!-- /.container-fluid -->
 	  <div class="checkbox" >
 	  <?php
+	  error_reporting(E_ALL ^ E_WARNING);
 //include "../../users.php";
 
 	 include_once '../php/academics.php';
 			 $checkBoxClass=new academicsclass();
         echo $checkBoxClass->showCalendar();
 		
-			include_once '../php/social.php';
+		include_once '../php/social.php';
 			 $checkBoxClass=new socialclass();
-        echo $checkBoxClass->showCalendar();
+       echo $checkBoxClass->showCalendar();
 		
 		include_once '../php/communityservice.php';
-			 $checkBoxClass=new csclass();
-        echo $checkBoxClass->showCalendar();
+		 $checkBoxClass=new csclass();
+      echo $checkBoxClass->showCalendar();
+	   
 	
 
 	
@@ -266,7 +275,28 @@
     // -----------------------------------------------------------------
 
 
-
+var event =        {
+          title          : 'Study Blitz',
+          start          : new Date(y, m, 7,13),
+		   allDay         : false,
+		  url 			 : 'http://google.com/',
+          backgroundColor: '#41a8ba', //academic blue
+          borderColor    : '#41a8ba' //academic blue
+}
+	$.ajax({
+		url:"../../php/get.php",
+		method: "GET",
+		data: {
+			"Event": "testuser"
+			
+			
+			
+		},
+		success: function(response){
+			console.log(response);
+			//calender.addEvent(response);
+		}
+	});
     var calendar = new Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
       header    : {
@@ -274,57 +304,7 @@
         center: 'title',
         right : 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      //Random default events
-      events    : [
-        {
-          title          : 'Study Blitz',
-          start          : new Date(y, m, 7,13),
-		   allDay         : false,
-		  url 			 : 'http://google.com/',
-          backgroundColor: '#f56954', //red
-          borderColor    : '#f56954' //red
-        },
-        {
-          title          : 'Midwest Study Blitz',
-          start          : new Date(y, m, 19,19),
-		   allDay         : false,
-		   url 			 : 'http://google.com/',
-          backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12' //yellow
-        },
-        {
-          title          : 'Supplemental Instruction',
-          start          : new Date(y, m, 26,18),
-          allDay         : false,
-		  url 			 : 'http://google.com/',
-          backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
-        },
-        {
-          title          : 'ACCT 221-Suppl. Instruction',
-          start          : new Date(y, m,12, 14),
-          allDay         : false,
-		   url 			 : 'http://google.com/',
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
-        },
-        {
-          title          : 'Student Athletes Study Hall',
-          start          : new Date(y, m,13,18),
-		   url 			 : 'http://google.com/',
-          allDay         : false,
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Finance Supplemental',
-          start          : new Date(y, m, 2,14),
-          url 			 : 'http://google.com/',
-          allDay         : false,
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
+      //Vissible eventd
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       drop      : function(info) {
@@ -335,7 +315,7 @@
         }
       }
     });
-
+	calendar.addEvent(event);
     calendar.render();
     // $('#calendar').fullCalendar()
 

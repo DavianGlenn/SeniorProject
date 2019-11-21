@@ -182,7 +182,7 @@ public function showCalendar(){
 	echo "</table>";
 	
 	}
-}666
+}
 
 ?>
 
