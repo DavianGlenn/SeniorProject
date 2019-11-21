@@ -114,6 +114,12 @@ include"../users.php";
               </p>
             </a>
           </a>
+		   <a href="hobby.php" class="nav-link ">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+            Hobby Lobby
+
+            </p>
          
 		  <a href="../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -281,67 +287,19 @@ include"../users.php";
 	
 
 	?>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-              <table>
-			  <tr>
-      <th>Select Event(s)</th>
-      <th data-th="Driver details"><span>Event Name</span></th>
-      <th>Event Location</th>
-      <th>Date</th>
-      <th>Time</th>
-    </tr>
-    
-    <tr>
-      <td><input type="Checkbox"/ name="academics" value="Study Blitz with the Royal Court "></td>
-      <td>Study Blitz with the Royal Court</td>
-      <td>NCAT Student Center</td>
-      <td>11/07/2019</td>
-      <td>1PM</td>
-    </tr>
-    
-    <tr>
-      <td><input type="Checkbox"/ name="academics2" value="A Night of Terror Haunted Festival" ></td>
-      <td>Midwest Study Sessions</td>
-      <td>Bluford Library</td>
-      <td>11/19/2019</td>
-      <td>7PM</td>
-    </tr>
-    
-    <tr>
-      <td><input type="Checkbox"/ name="academics3" value="Laugh out Loud" ></td>
-      <td>Supplemental Instruction</td>
-      <td>Bluford Library</td>
-      <td>11/26/2019</td>
-      <td>6PM</td>
-    </tr>
-    
-    <tr>
-      <td><input type="Checkbox"/ name="academics4" value="Game Night" ></td>
-      <td>ACCT 221-Suppl. Instruction</td>
-      <td>Craig Hall</td>
-      <td>11/12/2019</td>
-      <td>2PM</td>
-    </tr>
+        <form action="" method="post">
+             
+	<?php 
+	include_once '../php/createEvent.php';
+			 $checkBoxClass=new event_Class();
+        echo $checkBoxClass->create();
 	
-	 <tr>
-      <td><input type="Checkbox"/ name="academics5" value="Aggie Bazaar" ></td>
-      <td>Student Athletes Study Hall</td>
-      <td>Academic Classroom Building</td>
-      <td>11/13/2019</td>
-      <td>6PM</td>
-    </tr>
-	
-	 <tr>
-      <td><input type="Checkbox"/ name="academics6" value="Aggie Pregame" ></td>
-      <td>Supplemental Instruction- Finance</td>
-      <td>Craig Hall</td>
-      <td>11/02/2019</td>
-      <td>2PM</td>
-    </tr>
+	?>
+
+ 
     
-  </table>
-           
-			 <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
+    
+   
 			<script type ="text/javascript">
 			function mess() {
    alert(" Your event was added");
@@ -349,6 +307,11 @@ include"../users.php";
 }
 </script>
         </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
     </div> <!-- /container -->
 </div>
             <!-- Social List -->
@@ -456,13 +419,12 @@ include"../users.php";
     
   </table>
            <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
-			<script type ="text/javascript">
-			function mess() {
-   alert(" Your event was added");
-   return true;
-}
+ </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
 </script>
-        </form>
     </div> 
 	</div>
 	</div>
@@ -582,6 +544,11 @@ include"../users.php";
 }
 </script>
         </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
     </div> <!-- /container -->
 </li>
  </ul>
@@ -598,9 +565,36 @@ include"../users.php";
                   Buddy List
                 </h3>
 				<div class="card-body">
+		<?php  
+		 $conn = mysqli_connect("localhost","root","","Senior Project");
+				
+				$sql =mysqli_query($conn, "select First_Name, Email, userid, count(Event_ID) from checkbox, user_account \n"
+
+    . "where event_id in(\n"
+
+    . "Select Event_ID from checkbox where userid ='{$_SESSION['userid']}'\n"
+
+    . "    ) and userid != '{$_SESSION['userid']}' and userid=user_account.ID\n"
+
+    . "Group by userid,First_Name, Email\n"
+
+    . "Having count(Event_ID)>=3  \n"
+
+    . "ORDER BY `checkbox`.`userid`"
+);
+	echo "<table border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr><td>Here are your Buddies</td> <td>Email</td> 
+	 </tr>\n";
+	while($row=mysqli_fetch_assoc($sql))
+	{
 		
+	 echo "<tr><td>{$row['First_Name']}</td><td>{$row['Email']}</td></tr>";
+	}
+	echo "</table>";
+		?>
 	</div>
-	
+
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->

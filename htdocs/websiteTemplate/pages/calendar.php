@@ -1,4 +1,5 @@
-<?php  require "../../Login.php" ?>
+<?php  require "../../Login.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +70,7 @@
       <span class="brand-text font-weight-light">Calendly for students</span>
     </a>
 
-    
+
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -101,7 +102,13 @@
               </p>
             </a>
           </a>
-          
+		   <a href="../hobby.php" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+            Hobby Lobby
+
+            </p>
+
 		  <a href="../../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -122,11 +129,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-             <h1>Academic Calendar</h1> 
+             <h1>Academic Calendar</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../index.php">Home</a>
               <li class="breadcrumb-item active">Calendar</li>
             </ol>
           </div>
@@ -218,7 +225,7 @@
         $(this).data('eventObject', eventObject)
 
         // make the event draggable using jQuery UI
-        
+
 
       })
     }
@@ -234,7 +241,7 @@
         y    = date.getFullYear()
 
     var Calendar = FullCalendar.Calendar;
-    
+
 
     var containerEl = document.getElementById('external-events');
     var checkbox = document.getElementById('drop-remove');
@@ -244,7 +251,28 @@
     // -----------------------------------------------------------------
 
 
+var event =        {
+          title          : 'Study Blitz',
+          start          : new Date(y, m, 7,13),
+		   allDay         : false,
+		  url 			 : 'http://google.com/',
+          backgroundColor: '#41a8ba', //academic blue
+          borderColor    : '#41a8ba' //academic blue
+}
+	$.ajax({
+		url:"../../php/get.php",
+		method: "GET",
+		data: {
+			"Event": "testuser"
 
+
+
+		},
+		success: function(response){
+			console.log(response);
+			//calender.addEvent(response);
+		}
+	});
     var calendar = new Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
       header    : {
@@ -252,57 +280,7 @@
         center: 'title',
         right : 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      //Random default events
-      events    : [
-        {
-          title          : 'Study Blitz',
-          start          : new Date(y, m, 7,13),
-		   allDay         : false,
-		  url 			 : 'http://google.com/',
-          backgroundColor: '#f56954', //red
-          borderColor    : '#f56954' //red
-        },
-        {
-          title          : 'Midwest Study Blitz',
-          start          : new Date(y, m, 19,19),
-		   allDay         : false,
-		   url 			 : 'http://google.com/',
-          backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12' //yellow
-        },
-        {
-          title          : 'Supplemental Instruction',
-          start          : new Date(y, m, 26,18),
-          allDay         : false,
-		  url 			 : 'http://google.com/',
-          backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
-        },
-        {
-          title          : 'ACCT 221-Suppl. Instruction',
-          start          : new Date(y, m,12, 14),
-          allDay         : false,
-		   url 			 : 'http://google.com/',
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
-        },
-        {
-          title          : 'Student Athletes Study Hall',
-          start          : new Date(y, m,13,18),
-		   url 			 : 'http://google.com/',
-          allDay         : false,
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Finance Supplemental',
-          start          : new Date(y, m, 2,14),
-          url 			 : 'http://google.com/',
-          allDay         : false,
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
+      //Vissible eventd
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       drop      : function(info) {
@@ -313,7 +291,7 @@
         }
       }
     });
-
+	calendar.addEvent(event);
     calendar.render();
     // $('#calendar').fullCalendar()
 
@@ -350,7 +328,7 @@
       $('#external-events').prepend(event)
 
       //Add draggable funtionality
-      
+
 
       //Remove event from text input
       $('#new-event').val('')
@@ -361,8 +339,8 @@
 //include "../../users.php";
 $conn = mysqli_connect("localhost","root","","Senior Project");
 		//$sql = "SELECT events From academic where user_account.id=";
-		
-		
+
+
 		?>
 </body>
 </html>
