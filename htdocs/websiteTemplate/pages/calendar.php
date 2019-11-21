@@ -70,7 +70,7 @@
       <span class="brand-text font-weight-light">Calendly for students</span>
     </a>
 
-    
+
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -108,7 +108,7 @@
             Hobby Lobby
 
             </p>
-          
+
 		  <a href="../../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -129,39 +129,16 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-             <h1>Academic Calendar</h1> 
+             <h1>Academic Calendar</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../index.php">Home</a>
               <li class="breadcrumb-item active">Calendar</li>
-			  
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
-	  <div class="checkbox" >
-	  <?php
-	  error_reporting(E_ALL ^ E_WARNING);
-//include "../../users.php";
-
-	 include_once '../php/academics.php';
-			 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->showCalendar();
-		
-		include_once '../php/social.php';
-			 $checkBoxClass=new socialclass();
-       echo $checkBoxClass->showCalendar();
-		
-		include_once '../php/communityservice.php';
-		 $checkBoxClass=new csclass();
-      echo $checkBoxClass->showCalendar();
-	   
-	
-
-	
-		?>
-	  </div>
     </section>
 
     <!-- Main content -->
@@ -230,7 +207,6 @@
 
 <script src="../plugins/fullcalendar-bootstrap/main.min.js"></script>
 <!-- Page specific script -->
-
 <script>
   $(function () {
 
@@ -249,7 +225,7 @@
         $(this).data('eventObject', eventObject)
 
         // make the event draggable using jQuery UI
-        
+
 
       })
     }
@@ -265,7 +241,7 @@
         y    = date.getFullYear()
 
     var Calendar = FullCalendar.Calendar;
-    
+
 
     var containerEl = document.getElementById('external-events');
     var checkbox = document.getElementById('drop-remove');
@@ -288,9 +264,9 @@ var event =        {
 		method: "GET",
 		data: {
 			"Event": "testuser"
-			
-			
-			
+
+
+
 		},
 		success: function(response){
 			console.log(response);
@@ -352,13 +328,19 @@ var event =        {
       $('#external-events').prepend(event)
 
       //Add draggable funtionality
-      
+
 
       //Remove event from text input
       $('#new-event').val('')
     })
   })
 </script>
+<?php
+//include "../../users.php";
+$conn = mysqli_connect("localhost","root","","Senior Project");
+		//$sql = "SELECT events From academic where user_account.id=";
 
+
+		?>
 </body>
 </html>

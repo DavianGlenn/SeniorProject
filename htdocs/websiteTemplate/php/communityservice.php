@@ -1,5 +1,5 @@
 <?php
-   error_reporting(E_ALL ^ E_WARNING);  
+    
 class csclass{
 	
 		   public function addtoDatabase(){
@@ -173,20 +173,7 @@ echo "</tr>";
 }
 
 
-public function showCalendar(){
-	$conn = mysqli_connect("localhost","root","","Senior Project");
-	$check=mysqli_query($conn, "SELECT events From community_service where community_service.userid='{$_SESSION['userid']}'");
-	echo "<table border ='1'>";
-	echo "<tr><td>Here Are The Community Service Events You're Attending</td></tr>\n";
-	echo "<table border ='1'>";
-	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
-	while($row=mysqli_fetch_assoc($check))
-	{
-		echo"<tr><td> {$row['events']}</td></tr>\n";
-	}
-	echo "</table>";
-	
-	}
+
 
 
 }
