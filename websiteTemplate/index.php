@@ -314,122 +314,183 @@ include"../users.php";
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-graduation-cap"></i>
-				Academic                </h3>
+                  Academic                </h3>
+
+              
+</div>
+<!-- /.card-header -->
+<div class="card-body">
 
 
+  <ul class="todo-list" data-widget="todo-list">
+    <li>
+<div class="card-body"> 
+<div class=container>
+<form action="" method="post">
+
+<?php 
+$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+$con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+
+$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Academic' ") or die("Bad Querey");
+
+
+echo "<table border =''>";
+//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+echo "<tr>
+<td>Select Event</td>
+
+<td>Organization Name</td>
+<td>Event</td> 
+<td>Event Location</td> 
+
+<td>Date</td> 
+<td>Time</td> </tr>\n";
+while($row=mysqli_fetch_assoc($result))
+{
+$a="";
+$a ="n_";
+$a .= $count2;
+$orgID=$row['orgID'];
+
+echo "<tr></tr><tr>
+<td><input type='checkbox' name='$a'></td>
+    <td>{$row['org_name']}</td>
+    <td>{$row['event']}</td>
+
+
+    <td>{$row['Location']}</td>
+    <td>{$row['Date']}</td>
+    <td>{$row['time']}</td>
+    
+    
+ </tr>";
+$count2++; 	
+
+if(isset($_POST[$a])){
+$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM academic WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+$check=mysqli_num_rows($result2);
+if(!$check){
+echo "{$row['event']} has been added to your calendar.";
+$into=mysqli_query($con,"INSERT INTO academic( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+}else{
+
+echo "{$row['event']} has already been added to your calendar.";
+}
+}
+}
+
+echo "</table>";
+
+echo "<input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>";
+
+
+
+
+
+?>
+</div>
+
+
+<script type ="text/javascript">
+function mess() {
+alert(" Your event was added");
+return true;
+}
+</script>
+</form>
+<script>
+if ( window.history.replaceState ) {
+window.history.replaceState( null, null, window.location.href );
+}
+</script>
+</div> <!-- /container -->
+</div>Social
+                </h3>
+
+              
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-
-
+			
+			  
                 <ul class="todo-list" data-widget="todo-list">
-                  <li>
-         <div class="card-body">
-			<?php
+                   <form action="" method="post">
+      <div class=container>       
+	<?php 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Social' ") or die("connection error");
+	
 
+	echo "<table border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
+	<td>Time</td> </tr>\n";
+	$count3 =1;
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$a="";
+	$a ="n_";
+	$a .= $count3;
+	$orgID=$row['orgID'];
 
-
-		 //First Check box
-		 if(isset($_POST["academics"])){
-			  include_once 'php/academics.php';
-			  $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase();
-
+	echo "<tr></tr><tr>
+	<td><input type='checkbox' name='$a'></td>
+                  <td>{$row['org_name']}</td>
+                  <td>{$row['event']}</td>
+				  <td>{$row['Location']}</td>
+				  
+                  
+                  <td>{$row['Date']}</td>
+                  <td>{$row['time']}</td>
+                  
+                  
+               </tr>";
+         $count3++; 	
+		 
+	if(isset($_POST[$a])){
+		$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM socials WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO socials( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
 		 }
-
-		//Second Chek box
-		 if(isset($_POST["academics2"])){
-			  include_once 'php/academics.php';
-			  $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase2();
-		 }
-		//Third check box
-		 if(isset($_POST["academics3"])){
-			  include_once 'php/academics.php';
-			  $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase3();
-		 }
-		//Fourth Check box
-		if(isset($_POST["academics4"])){
-			 include_once 'php/academics.php';
-			 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase4();
 	}
-		if(isset($_POST["academics5"])){
-			 include_once 'php/academics.php';
-			 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase5();
-	}
-	if(isset($_POST["academics6"])){
-		 include_once 'php/academics.php';
-		 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase6();
-	}
-
-
-
-
-
+      }
+	
+	echo "</table>";
+	
+	 echo "<input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>";
+	 
+	 
+	
+	 
+	
 	?>
-
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <div class="container">
-              <table>
-			  <tr>
-
-      <th>Select Event(s)</th>
-      <th data-th="Driver details"><span>Event Name</span></th>
-      <th>Event Location</th>
-      <th>Date</th>
-      <th>Time</th>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="academics" value="Study Blitz with the Royal Court "></td>
-      <td>Study Blitz with the Royal Court</td>
-      <td>NCAT Student Center</td>
-      <td>11/07/2019</td>
-      <td>1PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="academics2" value="A Night of Terror Haunted Festival" ></td>
-      <td>Midwest Study Sessions</td>
-      <td>Bluford Library</td>
-      <td>11/19/2019</td>
-      <td>7PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="academics3" value="Laugh out Loud" ></td>
-      <td>Supplemental Instruction</td>
-      <td>Bluford Library</td>
-      <td>11/26/2019</td>
-      <td>6PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="academics4" value="Game Night" ></td>
-      <td>ACCT 221-Suppl. Instruction</td>
-      <td>Craig Hall</td>
-      <td>11/12/2019</td>
-      <td>2PM</td>
-    </tr>
-	 <tr>
-      <td><input type="Checkbox"/ name="academics5" value="Aggie Bazaar" ></td>
-      <td>Student Athletes Study Hall</td>
-      <td>Academic Classroom Building</td>
-      <td>11/13/2019</td>
-      <td>6PM</td>
-    </tr>
-	 <tr>
-      <td><input type="Checkbox"/ name="academics6" value="Aggie Pregame" ></td>
-      <td>Supplemental Instruction- Finance</td>
-      <td>Craig Hall</td>
-      <td>11/02/2019</td>
-      <td>2PM</td>
-    </tr>
-
-  </table>
-  </div>
-
-			 <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
+ 
+   </div> 
+    
+   
 			<script type ="text/javascript">
 			function mess() {
    alert(" Your event was added");
@@ -437,218 +498,101 @@ include"../users.php";
 }
 </script>
         </form>
-    </div> <!-- /container -->
-</div>
-            <!-- Social List -->
-            <div class="card- body">
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+    </div> 
+	</div>
+	</div>
+  <!-- Social List -->
+  <div class="card- body">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-users mr-1"></i>
-                  Social
-                </h3>
-
-
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-
-
-                <ul class="todo-list" data-widget="todo-list">
-                  <li>
-         <div class="card-body"> <?php
-		  include_once 'php/social.php';
-		 if(isset($_POST["Social"])){
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase();
-		}
-		if(isset($_POST["Social2"])){
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase2();
-		}
-		if(isset($_POST["Social3"])){
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase3();
-		}
-		if(isset($_POST["Social4"])){
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase4();
-		}
-		if(isset($_POST["Social5"])){
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase5();
-		}
-		if(isset($_POST["Social6"])){
-        $checkBoxClass=new socialclass();
-        echo $checkBoxClass->addtoDatabase6();
-		}
-
-		?>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <div class="container">
-              <table>
-			  <tr>
-      <th>Select Event(s)</th>
-      <th data-th="Driver details"><span>Event Name</span></th>
-      <th>Event Location</th>
-      <th>Date</th>
-      <th>Time</th>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="Social" value="Aggies at the Apollo Auditions"></td>
-      <td>Aggies at the Apollo Auditions</td>
-      <td>Paul Roberson Theatre</td>
-      <td>11/20/2019</td>
-      <td>5PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="Social2" value="A Night of Terror Haunted Festival" ></td>
-      <td>A Night of Terror Haunted Festival</td>
-      <td>Merrick Hall</td>
-      <td>11/01/2019</td>
-      <td>7PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="Social3" value="Laugh out Loud" ></td>
-      <td>Laugh out Loud</td>
-      <td>Corbett Sports Center</td>
-      <td>11/23/2019</td>
-      <td>7PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="Social4" value="Game Night" ></td>
-      <td>Game Night</td>
-      <td>NCAT Student Center</td>
-      <td>11/30/2019</td>
-      <td>6PM</td>
-    </tr>
-	 <tr>
-      <td><input type="Checkbox"/ name="Social5" value="Aggie Bazaar" ></td>
-      <td>Aggie Bazaar</td>
-      <td>Park and Ride Lot</td>
-      <td>11/25/2019</td>
-      <td>1PM</td>
-    </tr>
-	 <tr>
-      <td><input type="Checkbox"/ name="Social6" value="Aggie Pregame" ></td>
-      <td>Aggie Pregame</td>
-      <td>Corbett Sports Center</td>
-      <td>11/24/2019</td>
-      <td>4PM</td>
-    </tr>
-
-  </table>
-  </div>
-           <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
-			<script type ="text/javascript">
-			function mess() {
-   alert(" Your event was added");
-   return true;
-}
-</script>
-        </form>
-    </div>
-	</div>
-	</div>
-   <!-- Social List -->
-            <div class="card- body">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fa fa-handshake"></i>
 				Community Service
                 </h3>
 
-
+              
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-
-
+			
+			  
                 <ul class="todo-list" data-widget="todo-list">
-                  <li>
-         <div class="card-body"> <?php
-		include_once 'php/communityservice.php';
-			if(isset($_POST["commserv"])){
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase();
-		}
-		if(isset($_POST["commserv2"])){
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase2();
-		}
-		if(isset($_POST["commserv3"])){
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase3();
-		}
-		if(isset($_POST["commserv4"])){
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase4();
-		}
-		if(isset($_POST["commserv5"])){
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase5();
-		}
-		if(isset($_POST["commserv6"])){
-			$checkBoxClass=new csclass();
-			echo $checkBoxClass->addtoDatabase6();
-		}
-		?>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <div class="container">
-           <table>
-		   <tr>
-      <th>Select Event(s)</th>
-      <th data-th="Driver details"><span>Event Name</span></th>
-      <th>Event Location</th>
-      <th>Date</th>
-      <th>Time</th>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="commserv" value="Winter Clothing Drive"></td>
-      <td>Winter Clothing Drive</td>
-      <td>Student Center</td>
-      <td>11/03/2019</td>
-      <td>6PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="commserv2" value="Clean A Side Walk" ></td>
-      <td>Clean a Side Walk</td>
-      <td>Gibbs Hall</td>
-      <td>11/03/2019</td>
-      <td>4PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="commserv3" value="STEM Mentorship Program" ></td>
-      <td>STEM Mentorship Program</td>
-      <td>McCain Hall</td>
-      <td>11/15/2019</td>
-      <td>5PM</td>
-    </tr>
-    <tr>
-      <td><input type="Checkbox"/ name="commserv4" value="Breast Cancer Walk" ></td>
-      <td>Breast Cancer Walk</td>
-      <td>Corbett Sports Center</td>
-      <td>11/07/2019</td>
-      <td>7PM</td>
-    </tr>
-	 <tr>
-      <td><input type="Checkbox"/ name="commserv5" value="Children's Book Reading" ></td>
-      <td>Children's Book Reading</td>
-      <td>Child Development Laboratory</td>
-      <td>11/08/2019</td>
-      <td>3PM</td>
-    </tr>
-	 <tr>
-      <td><input type="Checkbox"/ name="commserv6" value="Food Pantry Drive" ></td>
-      <td>Food Pantry Drive</td>
-      <td>Williams Dining Hall</td>
-      <td>11/18/2019</td>
-      <td>2PM</td>
-    </tr>
+                 <form action="" method="post">
+       <div class=container>      
+	<?php 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Community Service'") or die("connection error");
+	
 
-  </table>
-  </div>
+	echo "<table border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
+	<td>Time</td> </tr>\n";
+	$count4 =1;
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$a="";
+	$a ="n_";
+	$a .= $count4;
+	$orgID=$row['orgID'];
 
-            <input type='submit' name="submit3" value='+Add Event' onclick='btnClick();' class="return mess();">
+	echo "<tr></tr><tr>
+	<td><input type='checkbox' name='$a'></td>
+                  <td>{$row['org_name']}</td>
+                  <td>{$row['event']}</td>
+				  
+				  
+                  <td>{$row['Location']}</td>
+                  <td>{$row['Date']}</td>
+                  <td>{$row['time']}</td>
+                  
+                  
+               </tr>";
+         $count4++; 	
+		 
+	if(isset($_POST[$a])){
+		$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM commserv WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO commserv( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
+		 }
+	}
+      }
+	
+	echo "</table>";
+	
+	 echo "<input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>";
+	 
+	 
+	
+	 
+	
+	?>
+ </div>
+    
+    
+   
 			<script type ="text/javascript">
 			function mess() {
    alert(" Your event was added");
@@ -656,125 +600,160 @@ include"../users.php";
 }
 </script>
         </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+    </div> <!-- /container -->
+</li>
+ </ul>
+</div> 
+<!-- Social List -->
+<div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-users mr-1"></i>
+				Career Opportunities
+                </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                 <form action="" method="post">
+             
+	<?php 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Career Opportunities'") or die("connection error");
+	$Time=date("g:i a", strtotime("Time"));
+
+	echo "<table border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
+	<td>Time</td> </tr>\n";
+	$count =1;
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$a="";
+	$a ="n_";
+	$a .= $count;
+	$orgID=$row['orgID'];
+
+	echo "<tr></tr><tr>
+	<td><input type='checkbox' name='$a'></td>
+                 <td>{$row['org_name']}</td>
+                  <td>{$row['event']}</td>
+				  
+				  
+                  <td>{$row['Location']}</td>
+                  <td>{$row['Date']}</td>
+                  <td>{$row['time']}</td>
+                  
+                  
+               </tr>";
+         $count++; 	
+		 
+	if(isset($_POST[$a])){
+		$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM commserv WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO commserv( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
+		 }
+	}
+      }
+	
+	echo "</table>";
+	
+	 echo "<input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>";
+	 
+	 
+	
+	 
+	
+	?>
+ 
+    
+    
+   
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
     </div> <!-- /container -->
 </li>
  </ul>
 </div> <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
          </ul>
-
-         <div class="card- body">
-           <div class="card-header">
-             <h3 class="card-title">
-               <i class="fa fa-briefcase"></i>
-             Career Opportunities
-             </h3>
-
-
-           </div>
-           <!-- /.card-header -->
+          <!-- Buddy List -->
            <div class="card-body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-cloud mr-1"></i>
+                <h3 class="card-title">
+                  <i class="fas fa-list-ul mr-1"></i>
+                  Buddy List
+                </h3>
+				<div class="card-body">
+		<?php  
+		 $conn = mysqli_connect("localhost","root","","Senior Project");
+				
+				$sql =mysqli_query($conn, "select First_Name,Last_Name, Email, userid, count(Event_ID) from checkbox, user_account \n"
 
+    . "where event_id in(\n"
 
-             <ul class="todo-list" data-widget="todo-list">
-               <li>
-        <div class="card-body"> <?php
-        include_once 'php/communityservice.php';
-         if(isset($_POST["commserv"])){
-         $checkBoxClass=new csclass();
-         echo $checkBoxClass->addtoDatabase();
-        }
+    . "Select Event_ID from checkbox where userid ='{$_SESSION['userid']}'\n"
 
-        if(isset($_POST["commserv2"])){
-         $checkBoxClass=new csclass();
-         echo $checkBoxClass->addtoDatabase2();
-        }
+    . "    ) and userid != '{$_SESSION['userid']}' and userid=user_account.ID\n"
 
-        if(isset($_POST["commserv3"])){
-         $checkBoxClass=new csclass();
-         echo $checkBoxClass->addtoDatabase3();
-        }
+    . "Group by userid,First_Name, Email\n"
 
-        if(isset($_POST["commserv4"])){
-         $checkBoxClass=new csclass();
-         echo $checkBoxClass->addtoDatabase4();
-        }
+    . "Having count(Event_ID)>=3  \n"
 
-        if(isset($_POST["commserv5"])){
-         $checkBoxClass=new csclass();
-         echo $checkBoxClass->addtoDatabase5();
-        }
-
-        if(isset($_POST["commserv6"])){
-         $checkBoxClass=new csclass();
-         echo $checkBoxClass->addtoDatabase6();
-        }
-        ?>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-         <div class="container">
-        <table>
-        <tr>
-        <th>Select Event(s)</th>
-        <th data-th="Driver details"><span>Event Name</span></th>
-        <th>Event Location</th>
-        <th>Date</th>
-        <th>Time</th>
-        </tr>
-
-        <tr>
-        <td><input type="Checkbox"/ name="commserv" value="Winter Clothing Drive"></td>
-        <td>Winter Clothing Drive</td>
-        <td>Student Center</td>
-        <td>11/03/2019</td>
-        <td>6PM</td>
-        </tr>
-
-        <tr>
-        <td><input type="Checkbox"/ name="commserv2" value="Clean A Side Walk" ></td>
-        <td>Clean a Side Walk</td>
-        <td>Gibbs Hall</td>
-        <td>11/03/2019</td>
-        <td>4PM</td>
-        </tr>
-
-        <tr>
-        <td><input type="Checkbox"/ name="commserv3" value="STEM Mentorship Program" ></td>
-        <td>STEM Mentorship Program</td>
-        <td>McCain Hall</td>
-        <td>11/15/2019</td>
-        <td>5PM</td>
-        </tr>
-
-        <tr>
-        <td><input type="Checkbox"/ name="commserv4" value="Breast Cancer Walk" ></td>
-        <td>Breast Cancer Walk</td>
-        <td>Corbett Sports Center</td>
-        <td>11/07/2019</td>
-        <td>7PM</td>
-        </tr>
-
-        <tr>
-        <td><input type="Checkbox"/ name="commserv5" value="Children's Book Reading" ></td>
-        <td>Children's Book Reading</td>
-        <td>Child Development Laboratory</td>
-        <td>11/08/2019</td>
-        <td>3PM</td>
-        </tr>
-
-        <tr>
-        <td><input type="Checkbox"/ name="commserv6" value="Food Pantry Drive" ></td>
-        <td>Food Pantry Drive</td>
-        <td>Williams Dining Hall</td>
-        <td>11/18/2019</td>
-        <td>2PM</td>
-        </tr>
-
-        </table>
-        </div>
-        <input type='submit'name="submit2" value='+Add Event' onclick='btnClick();' class="return mess();">
-         <script type ="text/javascript">
-
-
+    . "ORDER BY `checkbox`.`userid`"
+);
+	echo "<table border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr><td>Here are your Buddies</td> <td>Email</td> 
+	 </tr>\n";
+	while($row=mysqli_fetch_assoc($sql))
+	{
+		
+	 echo "<tr><td>{$row['First_Name']}</td><td>{$row['Last_Name']}</td><td>{$row['Email']}</td></tr>";
+	}
+	echo "</table>";
+		?>
+	</div>
 
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
