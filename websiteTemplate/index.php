@@ -156,7 +156,6 @@ include"../users.php";
       </div>
 
 
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -310,7 +309,6 @@ include"../users.php";
         </div>
         <!-- /.row -->
         <!-- Main row -->
-
             <!-- Social List -->
             <div class="card- body">
               <div class="card-header">
@@ -345,7 +343,6 @@ include"../users.php";
 			  $checkBoxClass=new academicsclass();
         echo $checkBoxClass->addtoDatabase2();
 		 }
-
 		//Third check box
 		 if(isset($_POST["academics3"])){
 			  include_once 'php/academics.php';
@@ -363,7 +360,6 @@ include"../users.php";
 			 $checkBoxClass=new academicsclass();
         echo $checkBoxClass->addtoDatabase5();
 	}
-
 	if(isset($_POST["academics6"])){
 		 include_once 'php/academics.php';
 		 $checkBoxClass=new academicsclass();
@@ -387,7 +383,6 @@ include"../users.php";
       <th>Date</th>
       <th>Time</th>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="academics" value="Study Blitz with the Royal Court "></td>
       <td>Study Blitz with the Royal Court</td>
@@ -395,7 +390,6 @@ include"../users.php";
       <td>11/07/2019</td>
       <td>1PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="academics2" value="A Night of Terror Haunted Festival" ></td>
       <td>Midwest Study Sessions</td>
@@ -403,7 +397,6 @@ include"../users.php";
       <td>11/19/2019</td>
       <td>7PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="academics3" value="Laugh out Loud" ></td>
       <td>Supplemental Instruction</td>
@@ -411,7 +404,6 @@ include"../users.php";
       <td>11/26/2019</td>
       <td>6PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="academics4" value="Game Night" ></td>
       <td>ACCT 221-Suppl. Instruction</td>
@@ -419,7 +411,6 @@ include"../users.php";
       <td>11/12/2019</td>
       <td>2PM</td>
     </tr>
-
 	 <tr>
       <td><input type="Checkbox"/ name="academics5" value="Aggie Bazaar" ></td>
       <td>Student Athletes Study Hall</td>
@@ -427,7 +418,6 @@ include"../users.php";
       <td>11/13/2019</td>
       <td>6PM</td>
     </tr>
-
 	 <tr>
       <td><input type="Checkbox"/ name="academics6" value="Aggie Pregame" ></td>
       <td>Supplemental Instruction- Finance</td>
@@ -471,7 +461,6 @@ include"../users.php";
         $checkBoxClass=new socialclass();
         echo $checkBoxClass->addtoDatabase();
 		}
-
 		if(isset($_POST["Social2"])){
         $checkBoxClass=new socialclass();
         echo $checkBoxClass->addtoDatabase2();
@@ -504,7 +493,6 @@ include"../users.php";
       <th>Date</th>
       <th>Time</th>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="Social" value="Aggies at the Apollo Auditions"></td>
       <td>Aggies at the Apollo Auditions</td>
@@ -512,7 +500,6 @@ include"../users.php";
       <td>11/20/2019</td>
       <td>5PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="Social2" value="A Night of Terror Haunted Festival" ></td>
       <td>A Night of Terror Haunted Festival</td>
@@ -520,7 +507,6 @@ include"../users.php";
       <td>11/01/2019</td>
       <td>7PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="Social3" value="Laugh out Loud" ></td>
       <td>Laugh out Loud</td>
@@ -528,7 +514,6 @@ include"../users.php";
       <td>11/23/2019</td>
       <td>7PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="Social4" value="Game Night" ></td>
       <td>Game Night</td>
@@ -536,7 +521,6 @@ include"../users.php";
       <td>11/30/2019</td>
       <td>6PM</td>
     </tr>
-
 	 <tr>
       <td><input type="Checkbox"/ name="Social5" value="Aggie Bazaar" ></td>
       <td>Aggie Bazaar</td>
@@ -544,7 +528,6 @@ include"../users.php";
       <td>11/25/2019</td>
       <td>1PM</td>
     </tr>
-
 	 <tr>
       <td><input type="Checkbox"/ name="Social6" value="Aggie Pregame" ></td>
       <td>Aggie Pregame</td>
@@ -588,27 +571,22 @@ include"../users.php";
 			$checkBoxClass=new csclass();
 			echo $checkBoxClass->addtoDatabase();
 		}
-
 		if(isset($_POST["commserv2"])){
 			$checkBoxClass=new csclass();
 			echo $checkBoxClass->addtoDatabase2();
 		}
-
 		if(isset($_POST["commserv3"])){
 			$checkBoxClass=new csclass();
 			echo $checkBoxClass->addtoDatabase3();
 		}
-
 		if(isset($_POST["commserv4"])){
 			$checkBoxClass=new csclass();
 			echo $checkBoxClass->addtoDatabase4();
 		}
-
 		if(isset($_POST["commserv5"])){
 			$checkBoxClass=new csclass();
 			echo $checkBoxClass->addtoDatabase5();
 		}
-
 		if(isset($_POST["commserv6"])){
 			$checkBoxClass=new csclass();
 			echo $checkBoxClass->addtoDatabase6();
@@ -624,7 +602,6 @@ include"../users.php";
       <th>Date</th>
       <th>Time</th>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="commserv" value="Winter Clothing Drive"></td>
       <td>Winter Clothing Drive</td>
@@ -632,7 +609,6 @@ include"../users.php";
       <td>11/03/2019</td>
       <td>6PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="commserv2" value="Clean A Side Walk" ></td>
       <td>Clean a Side Walk</td>
@@ -640,7 +616,6 @@ include"../users.php";
       <td>11/03/2019</td>
       <td>4PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="commserv3" value="STEM Mentorship Program" ></td>
       <td>STEM Mentorship Program</td>
@@ -648,7 +623,6 @@ include"../users.php";
       <td>11/15/2019</td>
       <td>5PM</td>
     </tr>
-
     <tr>
       <td><input type="Checkbox"/ name="commserv4" value="Breast Cancer Walk" ></td>
       <td>Breast Cancer Walk</td>
@@ -656,7 +630,6 @@ include"../users.php";
       <td>11/07/2019</td>
       <td>7PM</td>
     </tr>
-
 	 <tr>
       <td><input type="Checkbox"/ name="commserv5" value="Children's Book Reading" ></td>
       <td>Children's Book Reading</td>
@@ -664,7 +637,6 @@ include"../users.php";
       <td>11/08/2019</td>
       <td>3PM</td>
     </tr>
-
 	 <tr>
       <td><input type="Checkbox"/ name="commserv6" value="Food Pantry Drive" ></td>
       <td>Food Pantry Drive</td>
