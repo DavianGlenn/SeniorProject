@@ -1,5 +1,8 @@
 <?php  
-session_start(); 
+include"../users.php";
+if(!isset($_SESSION['logged_in'])){ 
+      header("Location:../index.html");}  
+
 error_reporting(E_ALL & ~E_NOTICE); 
 if(isset($_POST["Interest"])){
         include_once '../CreateAccount2/checkboxclass.php';
@@ -71,9 +74,38 @@ if(isset($_POST["Interest"])){
 <!DOCTYPE html>
 <html>
 <head>
+<style media="screen">
+    .containers { border:2px solid #ccc; width:350px; height: 100px; overflow-y: scroll;  position: left; background-color:#ffffff;}
+	
+	#customers {
+	  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	#customers td, #customers th {
+	  border: 1px solid #ddd;
+	  padding: 8px;
+	    font-size: 15px;
+	  
+	}
+
+	#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+	#customers tr:hover {background-color: #ddd;}
+
+	#customers th {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	  text-align: left;
+	  background-color: #4CAF50;
+	  color: white;
+	}
+	
+</style>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Calendly | Dashboard</title>
+  <title>Hobbies</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -169,6 +201,11 @@ if(isset($_POST["Interest"])){
              Dashboard
 
             </p>
+			<a href="pages/examples/profile.php" class="nav-link ">
+            <i class="nav-icon fas fa-address-card"></i>
+            <p>My profile</p></a>
+			 
+			
             <a href="pages/calendar.php" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
@@ -183,6 +220,9 @@ if(isset($_POST["Interest"])){
             Hobby Lobby
 
             </p>
+			<a href="pages/examples/contacts.html" class="nav-link ">
+            <i class="nav-icon fas fa-address-book"></i>
+            <p>Contacts</p></a>
          
 		  <a href="../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -190,7 +230,7 @@ if(isset($_POST["Interest"])){
              Logout
               <span class="badge badge-info right"></span>
             </p>
-
+</a>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -198,7 +238,7 @@ if(isset($_POST["Interest"])){
 
   <!-- Content Wrapper. Contains page content -->
 															<div class="container">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              
 			  <div class="content-wrapper">
 <h1>What Do You Like To Do For Fun?</h1>
 <h2>Please Select The Hobbies That Most Interest You</h2>
@@ -228,6 +268,22 @@ if(isset($_POST["Interest"])){
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
+<div class=containers>
+<?php
+$conn = mysqli_connect("localhost","root","","Senior Project");
+		$sql = "SELECT user_interest from checkbox where userid = '{$_SESSION['userid']}'" ;
+		
+	$result= mysqli_query($conn,$sql) or die("Badd Query:$sql");
+	echo "<table id='customers' border ='1'>";
+	echo "<tr><td>Here's Your Hobbies</td></tr>\n";
+	
+	while($row=mysqli_fetch_assoc($result))
+	{
+		echo"<tr><td> {$row['user_interest']}</td></tr>\n";
+	}
+	echo "</table>";
+?>
+</div>
     </div> <!-- /container -->
 	</div>
 <!-- Bootstrap 4 -->

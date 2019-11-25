@@ -1,5 +1,7 @@
 <?php
-session_start();
+include'users.php';
+if(!isset($_SESSION['logged_in'])){ 
+      header("Location:index.html");}  
 ?>
 <!DOCTYPE html>
 <html>

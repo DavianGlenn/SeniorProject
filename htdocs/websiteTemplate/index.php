@@ -1,13 +1,101 @@
 <?php
 include"../users.php";
-
+if(!isset($_SESSION['logged_in'])){ 
+      header("Location:../index.html");}  
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
+<style media="screen">
+    .container { border:2px solid #ccc; width:300px; height: 100px; overflow-y: scroll;  position: left; background-color:#ffffff;}
+	
+	#customers {
+	  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	#customers td, #customers th {
+	  border: 1px solid #ddd;
+	  padding: 8px;
+	  
+	}
+
+	#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+	#customers tr:hover {background-color: #ddd;}
+
+	#customers th {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	  text-align: left;
+	  background-color: #4CAF50;
+	  color: white;
+	}
+	
+</style>
+<style media="screen">
+    /* Popup container - can be anything you want */
+    .popup {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* The actual popup */
+    .popup .popuptext {
+      visibility: hidden;
+      width: 160px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -80px;
+    }
+
+    /* Popup arrow */
+    .popup .popuptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    /* Toggle this class - hide and show the popup */
+    .popup .show {
+      visibility: visible;
+      -webkit-animation: fadeIn 1s;
+      animation: fadeIn 1s;
+    }
+
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity:1 ;}
+    }
+</style>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Calendly | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,17 +138,7 @@ include"../users.php";
 
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -89,45 +167,47 @@ include"../users.php";
           <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a> <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
+          <a href="pages/examples/profile.php"> <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
         </div>
       </div>
 
 
-
+      
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <a href="index.php" class="nav-link active">
+          
+		    <a href="index.php" class="nav-link active">
+            <i class="nav-icon fas fa-home"></i>
+            <p> Dashboard </p></a>
+			
+			<a href="pages/examples/profile.php" class="nav-link ">
+            <i class="nav-icon fas fa-address-card"></i>
+            <p>My profile</p></a>
+			 
+			<a href="hobby.php" class="nav-link ">
             <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-             Dashboard
-
-            </p>
-            <a href="pages/calendar.php" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Calendar
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
-          </a>
-		   <a href="hobby.php" class="nav-link ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-            Hobby Lobby
-
-            </p>
-
-		  <a href="../Logout/logout.php" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-             Logout
-              <span class="badge badge-info right"></span>
-            </p>
-
+            <p>Hobby Lobby</p></a>
+            
+            
+		
+           
+		    <a href="pages/calendar.php" class="nav-link">
+            <i class="nav-icon fas fa-calendar-alt"></i>
+            <p>Calendar</p></a>
+           
+			
+			<a href="pages/examples/contacts.html" class="nav-link ">
+            <i class="nav-icon fas fa-address-book"></i>
+            <p>Contacts</p></a>
+        
+		    <a href="../Logout/logout.php" class="nav-link">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p></a>
+			
+		
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -144,7 +224,7 @@ include"../users.php";
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#"></a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -170,7 +250,7 @@ include"../users.php";
               <div class="icon">
                 <i class=" fas fa-graduation-cap"></i>
               </div>
-              <a href="php/academicEventsList.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="pages/examples/whosGoing.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -185,7 +265,7 @@ include"../users.php";
               <div class="icon">
                 <i class="fa fa-users"></i>
               </div>
-              <a href="php/socialEventList.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="pages/examples/whosGoing.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -198,9 +278,9 @@ include"../users.php";
                 <p>Community Service</p>
               </div>
               <div class="icon">
-                <i class=" fa fa-money"></i>
+                <i class=" fa fa-handshake"></i>
               </div>
-              <a href="php/csEventList.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="pages/examples/whosGoing.php" class="small-box-footer">View students going<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -222,132 +302,92 @@ include"../users.php";
         </div>
         <!-- /.row -->
         <!-- Main row -->
-
+      
             <!-- Social List -->
             <div class="card- body">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-users mr-1"></i>
+                  <i class="fas fa-graduation-cap"></i>
 				Academic                </h3>
 
-
+              
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-
-
+          <div class="card-body">
+			
+			  
                 <ul class="todo-list" data-widget="todo-list">
-                  <li>
-         <div class="card-body">
-			<?php
-
-
-
-		 //First Check box
-		 if(isset($_POST["academics"])){
-			  include_once 'php/academics.php';
-			  $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase();
-
-		 }
-
-		//Second Chek box
-		 if(isset($_POST["academics2"])){
-			  include_once 'php/academics.php';
-			  $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase2();
-		 }
-
-		//Third check box
-		 if(isset($_POST["academics3"])){
-			  include_once 'php/academics.php';
-			  $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase3();
-		 }
-		//Fourth Check box
-		if(isset($_POST["academics4"])){
-			 include_once 'php/academics.php';
-			 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase4();
-	}
-		if(isset($_POST["academics5"])){
-			 include_once 'php/academics.php';
-			 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase5();
-	}
-
-	if(isset($_POST["academics6"])){
-		 include_once 'php/academics.php';
-		 $checkBoxClass=new academicsclass();
-        echo $checkBoxClass->addtoDatabase6();
-	}
-
-
-
-
-
-	?>
-        <form action="" method="post">
-
-	<?php
+                   <form action="" method="post">
+             <div class=container>   
+         
+	<?php 
 	$host = "localhost";
 $dbusername = "root";
 $dbpassword = "";
 $dbname = "Senior Project";
 // Create connection
  $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Academic' ") or die("Bad Querey");
+	
 
-	$result=mysqli_query($con, "SELECT id,event,Location,Date,Time From orgevents where type = 'Academic' ") or die("connection error");
-
-
-	echo "<table border =''>";
+	echo "<table id='customers' border =''>";
 	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
-	echo "<tr><td>Select Event</td>
-	<td>Event Location</td>
-	<td>Date</td>
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
 	<td>Time</td> </tr>\n";
-	$count =1;
 	while($row=mysqli_fetch_assoc($result))
 	{
 	$a="";
 	$a ="n_";
-	$a .= $row['id'];
+	$a .= $count2;
+	$orgID=$row['orgID'];
 
-	echo "<tr>
+	echo "<tr></tr><tr>
 	<td><input type='checkbox' name='$a'></td>
-                  <td>$count</td>
+                  <td>{$row['org_name']}</td>
                   <td>{$row['event']}</td>
-				  <td>{$row['id']}</td>
+				  
+				  
                   <td>{$row['Location']}</td>
                   <td>{$row['Date']}</td>
-                  <td>{$row['Time']}</td>
-
-
+                  <td>{$row['time']}</td>
+                  
+                  
                </tr>";
-         $count++;
+         $count2++; 	
+		 
 	if(isset($_POST[$a])){
-	echo "hello";
-
-
-		$into=mysqli_query($con,"INSERT INTO academic( events, userid) value ('{$row['id']}','{$_SESSION['userid']}')");
-
+		$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM academic WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO academic( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
 		 }
+	}
       }
-
+	
 	echo "</table>";
-
-	 echo "<input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>";
-
-
-
-
-
+	
+	 
+	 
+	 
+	
+	 
+	
 	?>
-
-
-
-
-
+   </div> 
+    
+   
 			<script type ="text/javascript">
 			function mess() {
    alert(" Your event was added");
@@ -361,7 +401,7 @@ $dbname = "Senior Project";
     }
 </script>
     </div> <!-- /container -->
-</div>
+</div><input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
             <!-- Social List -->
             <div class="card- body">
               <div class="card-header">
@@ -370,74 +410,85 @@ $dbname = "Senior Project";
                   Social
                 </h3>
 
-
+              
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-
-
+			
+			  
                 <ul class="todo-list" data-widget="todo-list">
                    <form action="" method="post">
-
-	<?php
+          <div class=container>   
+	<?php 
 	$host = "localhost";
 $dbusername = "root";
 $dbpassword = "";
 $dbname = "Senior Project";
 // Create connection
  $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Social' ") or die("connection error");
+	
 
-	$result=mysqli_query($con, "SELECT id,event,Location,Date,Time From orgevents where type = 'Social' ") or die("connection error");
-
-
-	echo "<table border =''>";
+	echo "<table id='customers' border =''>";
 	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
-	echo "<tr><td>Select Event</td>
-	<td>Event Location</td>
-	<td>Date</td>
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
 	<td>Time</td> </tr>\n";
-	$count =1;
+	$count3 =1;
 	while($row=mysqli_fetch_assoc($result))
 	{
 	$a="";
 	$a ="n_";
-	$a .= $row['id'];
+	$a .= $count3;
+	$orgID=$row['orgID'];
 
-	echo "<tr>
+	echo "<tr></tr><tr>
 	<td><input type='checkbox' name='$a'></td>
-                  <td>$count</td>
+                  <td>{$row['org_name']}</td>
                   <td>{$row['event']}</td>
-				  <td>{$row['id']}</td>
-                  <td>{$row['Location']}</td>
+				  <td>{$row['Location']}</td>
+				  
+                  
                   <td>{$row['Date']}</td>
-                  <td>{$row['Time']}</td>
-
-
+                  <td>{$row['time']}</td>
+                  
+                  
                </tr>";
-         $count++;
+         $count3++; 	
+		 
 	if(isset($_POST[$a])){
-	echo "hello";
-
-
-		$into=mysqli_query($con,"INSERT INTO social( events, userid) value ('{$row['id']}','{$_SESSION['userid']}')");
-
+		$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM socials WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO socials( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
 		 }
+	}
       }
-
+	
 	echo "</table>";
-
-	 echo "<input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>";
-
-
-
-
-
+	
+	 
+	 
+	 
+	
+	 
+	
 	?>
-
-
-
-
-
+ 
+    </div>
+								<input  type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
+   
 			<script type ="text/javascript">
 			function mess() {
    alert(" Your event was added");
@@ -450,85 +501,97 @@ $dbname = "Senior Project";
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
-    </div>
+    </div> 
 	</div>
 	</div>
    <!-- Social List -->
             <div class="card- body">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-users mr-1"></i>
+                  <i class="fas fa-handshake"></i>
 				Community Service
                 </h3>
 
-
+              
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-
-
+            <div class="card-body">
+			
+			  
                 <ul class="todo-list" data-widget="todo-list">
-                 <form action="" method="post">
-
-	<?php
+                   <form action="" method="post">
+          <div class=container> 
+             
+	<?php 
 	$host = "localhost";
 $dbusername = "root";
 $dbpassword = "";
 $dbname = "Senior Project";
 // Create connection
  $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Community Service'") or die("connection error");
+	
 
-	$result=mysqli_query($con, "SELECT id,event,Location,Date,Time From orgevents where type = 'Community Service' ") or die("connection error");
-
-
-	echo "<table border =''>";
+	echo "<table id='customers' border =''>";
 	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
-	echo "<tr><td>Select Event</td>
-	<td>Event Location</td>
-	<td>Date</td>
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
 	<td>Time</td> </tr>\n";
-	$count =1;
+	$count4 =1;
 	while($row=mysqli_fetch_assoc($result))
 	{
 	$a="";
 	$a ="n_";
-	$a .= $row['id'];
+	$a .= $count4;
+	$orgID=$row['orgID'];
 
-	echo "<tr>
+	echo "<tr></tr><tr>
 	<td><input type='checkbox' name='$a'></td>
-                  <td>$count</td>
+                  <td>{$row['org_name']}</td>
                   <td>{$row['event']}</td>
-				  <td>{$row['id']}</td>
+				  
+				  
                   <td>{$row['Location']}</td>
                   <td>{$row['Date']}</td>
-                  <td>{$row['Time']}</td>
-
-
+                  <td>{$row['time']}</td>
+                  
+                  
                </tr>";
-         $count++;
+         $count4++; 	
+		 
 	if(isset($_POST[$a])){
-	echo "hello";
-
-
-		$into=mysqli_query($con,"INSERT INTO community_service( events, userid) value ('{$row['id']}','{$_SESSION['userid']}')");
-
+		$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM commserv WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO commserv( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
 		 }
+	}
       }
-
+	
 	echo "</table>";
-
-	 echo "<input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>";
-
-
-
-
-
+	
+	
+	 
+	 
+	
+	 
+	
 	?>
 
-
-
-
-
+  </div>  
+    <input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
+   
 			<script type ="text/javascript">
 			function mess() {
    alert(" Your event was added");
@@ -544,23 +607,134 @@ $dbname = "Senior Project";
     </div> <!-- /container -->
 </li>
  </ul>
-</div> <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-         </ul>
+</div> 
+ <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-briefcase"></i>
+				Career Opportunities
+                </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                   <form action="" method="post">
+          <div class=container> 
+             
+	<?php 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Career Opportunities'") or die("connection error");
+	$Time=date("g:i a", strtotime("Time"));
+
+	echo "<table id='customers' border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
+	<td>Time</td> </tr>\n";
+	$count =1;
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$a="";
+	$a ="n_";
+	$a .= $count;
+	$orgID=$row['orgID'];
+
+	echo "<tr></tr><tr>
+	<td><input type='checkbox' name='$a'></td>
+                 <td>{$row['org_name']}</td>
+                  <td>{$row['event']}</td>
+				  
+				  
+                  <td>{$row['Location']}</td>
+                  <td>{$row['Date']}</td>
+                  <td>{$row['time']}</td>
+                  
+                  
+               </tr>";
+         $count++; 	
+		 
+	if(isset($_POST[$a])){
+		$result2 = mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM commserv WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO commserv( event_name, userid,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
+		 }
+	}
+      }
+	
+	echo "</table>";
+	
+	 
+	 
+	 
+	
+	 
+	
+	?>
+	
+ </div>
+    <input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
+    
+   
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+    </div> <!-- /container -->
+</li>
+ </ul>
+</div> 
+
           <!-- Buddy List -->
            <div class="card-body">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-cloud mr-1"></i>
                 <h3 class="card-title">
-                  <i class="fas fa-list-ul mr-1"></i>
+                  <i class="fas fa-user-plus"></i>
                   Buddy List
                 </h3>
 				<div class="card-body">
-		<?php
+				<div class="card-header">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                   <form action="" method="post">
+          <div class=container> 
+				
+		<?php  
 		 $conn = mysqli_connect("localhost","root","","Senior Project");
-
-				$sql =mysqli_query($conn, "select First_Name, Email, userid, count(Event_ID) from checkbox, user_account \n"
+				
+				$sql =mysqli_query($conn, "select First_Name,Last_Name, Email, userid, count(Event_ID) from checkbox, user_account \n"
 
     . "where event_id in(\n"
 
@@ -574,18 +748,19 @@ $dbname = "Senior Project";
 
     . "ORDER BY `checkbox`.`userid`"
 );
-	echo "<table border =''>";
+	echo "<table id='customers' border =''>";
 	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
-	echo "<tr><td>Here are your Buddies</td> <td>Email</td>
+	echo "<tr><td>Here are your Buddies</td> <td>Email</td> 
 	 </tr>\n";
 	while($row=mysqli_fetch_assoc($sql))
 	{
-
-	 echo "<tr><td>{$row['First_Name']}</td><td>{$row['Email']}</td></tr>";
+		
+	 echo "<tr><td>{$row['First_Name']}</td><td>{$row['Last_Name']}</td><td>{$row['Email']}</td></tr>";
 	}
 	echo "</table>";
 		?>
 	</div>
+
 
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

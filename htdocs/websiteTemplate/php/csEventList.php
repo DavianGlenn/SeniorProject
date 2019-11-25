@@ -30,9 +30,9 @@
 <body class="hold-tran
 	<div class="card-body">
 		<?php 
-		 include_once 'communityservice.php';
-		 $checkBoxClass=new csclass();
-        echo $checkBoxClass->showUsers();
+		 include_once 'academics.php';
+		 $checkBoxClass=new academicsclass();
+        echo $checkBoxClass->showCommServEvents();
 		
 		echo '<a href="../index.php">Home</a>';
 		
