@@ -1,0 +1,17 @@
+<html>
+<head>   
+<link href="calendar.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<?php
+
+     $dateComponents = getdate();
+
+     $month = $dateComponents['mon']; 			     
+     $year = $dateComponents['year'];
+
+     echo build_calendar($month,$year,$dateArray);
+
+?>
+</body>
+</html>
