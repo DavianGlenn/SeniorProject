@@ -10,7 +10,11 @@ $dbname = "Senior Project";
 $orgname = filter_input(INPUT_POST, 'Org_Name');
 $email = filter_input(INPUT_POST, 'Email');
 $password= filter_input(INPUT_POST, 'Password');
-
+if(empty($orgname) || empty($email) || empty($password) )
+{
+    echo "You did not fill out the required fields.";
+	echo  "<meta http-equiv=\"refresh\" content=\"2;url=../orgRegistration.html\"/>";
+} 
 
 $check=mysqli_query($con,"select * from org_account where org_name='$orgname' and email='$email' ");
 $count=mysqli_num_rows($check);
