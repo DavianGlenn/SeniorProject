@@ -1,0 +1,44 @@
+<?php  
+session_start();
+// Include calendar helper functions
+include_once '../../newc/php_event_calendar/functions.php';
+if(!isset($_SESSION['logged_in'])){ 
+      header("Location:../index.html");}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Calendly | Calendar</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="../plugins/fullcalendar/main.min.css">
+  <link rel="stylesheet" href="../plugins/fullcalendar-interaction/main.min.css">
+  <link rel="stylesheet" href="../plugins/fullcalendar-daygrid/main.min.css">
+  <link rel="stylesheet" href="../plugins/fullcalendar-timegrid/main.min.css">
+  <link rel="stylesheet" href="../plugins/fullcalendar-bootstrap/main.min.css">
+  <link rel="stylesheet" href="../../newc/php_event_calendar/css/style.css">
+  <!-- J Query Library -->
+<script src="../../newc/php_event_calendar/js/jquery.min.js"></script>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body>
+
+	<!-- Display event calendar -->
+	<div id="calendar_div">
+		<?php echo getCalender(); ?>
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,468 @@
+<?php
+include"../../../users.php";
+if(!isset($_SESSION['logged_in'])){ 
+      header("Location:../index.html");}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Calendly | Contacts</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="../../index.php" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="contacts.html" class="nav-link">Contacts</a>
+      </li>
+    </ul>
+
+ 
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      
+      <!-- Notifications Dropdown Menu -->
+      
+      <li class="nav-item">
+        
+          
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="../../index.php" class="brand-link">
+      <img src="../../dist/img/ncatlogo.png"
+           alt="North Carolina A&T Logo"
+           class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Calendly for students</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../../dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="../../profile.php" class="d-block">Ncat Student</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+         
+              <a href="../../index.php" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p> Dashboard </p></a>
+			
+			<a href="profile.php" class="nav-link ">
+            <i class="nav-icon fas fa-address-card"></i>
+            <p>My profile</p></a>
+			
+			<a href="../../hobby.php" class="nav-link ">
+            <i class="nav-icon fas fa-thumbs-up"></i>
+            <p>Hobbies</p></a>
+		
+           
+		    <a href="../../../newc/php_event_calendar/index.php" class="nav-link">
+            <i class="nav-icon fas fa-calendar-alt"></i>
+            <p>Calendar</p></a>
+           
+			
+			<a href="contacts.html" class="nav-link active">
+            <i class="nav-icon fas fa-address-book"></i>
+            <p>Contacts</p></a>
+        
+		    <a href="../../../Logout/logout.php" class="nav-link">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p></a>
+             
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Contacts</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Contacts</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body pb-0">
+          <div class="row d-flex align-items-stretch">
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  University Police
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>University Police Department</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Protecting the campus of North Carolina A&T </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <strong>Address: </strong>406 Laurel Street/Ward Hall
+                          Greensboro NC 27411</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> 24 Hour Emergency: (336) 334-7946 </li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Anonymous Tip Line: (336) 334-7879 </li>
+                        
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=upd@ncat.edu&su=Police department concern&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Admissions
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>Graduate Admissions</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Contact the office of graduate admissions </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: 1601 E. Market St
+                          120 Gibbs Hall
+                          Greensboro, NC 27411</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: (336) 285-2366</li>
+                        
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=grad@ncat.edu&su=Graduate Admissions Question&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Housing
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>Housing and Residence life</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Providing a home to the students of North Carolina A&T </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Aggie Village 2 Office 201
+                          1601 East Market Street
+                          Greensboro, NC 27411</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <strong>Phone: </strong>Phone: 336-256-2498</li>
+                        <li class="small"><span class="fa-li"></i></span> <strong>Hours of operation: </strong>Monday through Friday - 8:00 AM until 5:00 PM </li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=housing@ncat.edu&su=Housing Question&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Research
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>Division of research and economic development</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Find out about opportunities in Research at North Carolina A&T </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <strong>Address: </strong>FORT INTERDISCIPLINARY RESEARCH CENTER
+                          NORTH CAROLINA A&T STATE UNIVERSITY
+                          1601 EAST MARKET STREET
+                          GREENSBORO, NC 27411</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <strong>Phone: </strong> (336) 334-7995</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Human Resources
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>The division of Human Resources</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b>The Division of Human Resources at NC A&T is committed to serving as a strategic partner by providing comprehensive Service, Excellence, Engagement and Knowledge to the University community. </p>
+                      <p class="text-muted text-sm"><b>Address: </b>1020 E. Wendover Ave. Suite 109 Greensboro, NC 27405 </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <strong>Phone: </strong>336-334-7862</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hr@ncat.edu&su=Human Resources Question&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Student government
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>NCAT SGA</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b>Students assist the faculty and administrative officers in the development of programs and policies in matters affecting academic question, student discipline and the general welfare of the A&T Community. </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <b>Location: </b>NCAT Student Center 3rd Floor</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>Phone: </b>336-285-2545 </li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=SGAservesyou@ncat.edu&su=SGA Questions and Concerns&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Blackboard Help Desk
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>Blackboard help desk</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Blackboard users have 24/7 support through the Blackboard Help Desk. All issues relating to Blackboard will no longer be handled by Aggie Tech Support.r </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>Tech support: </b>336-334-7195</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>Blackboard Help: </b>1-866-520-6877</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=helpdesk@ncat.edu&su=Technical Help&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Registrar
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>Office of the Registrar</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> The Office of the Registrar provides an array of services to students, faculty, administration, staff and the general public. </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <strong>Address:</strong> 1601 East Market Street
+                          Dowdy Administration Building
+                          Room 107
+                          Greensboro, NC 27411-1095</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <strong>Phone: </strong>336-334-7595</li>
+                        <li class="small"><span class="fa-li"></i></span> <strong>Hours of operation: </strong>Monday through Friday - 8:00 AM until 5:00 PM </li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=registra@ncat.edu&su=Registrar Office Concern&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Financial Aid
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>Office of Financial Aid</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Recieve assistance regarding Holds, Scolarships, and Funding </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <strong>Address:</strong> Dowdy Administrative Building, Suite 100
+                          1601 East Market Street
+                          Greensboro, NC 27411</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <strong>Phone:</strong> (336) 334-7973 </li>
+                        <li class="small"><span class="fa-li"></i></span> <strong>Hours of operation:</strong> 8:00am - 5:00pm Monday, Wednesday, Thursday, Friday
+                          8:00am - 5:30pm Tuesday </li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="../../dist/img/ncatlogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href= "https://mail.google.com/mail/?view=cm&fs=1&to=finaid@ncat.edu&su=Financial Aid Concern&body=Hello!" target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+              
+            </ul>
+          </nav>
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+</body>
+</html>
