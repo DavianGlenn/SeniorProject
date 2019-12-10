@@ -19,8 +19,8 @@ $password= filter_input(INPUT_POST, 'Password');
 	echo  "<meta http-equiv=\"refresh\" content=\"2;url=../register.html\"/>";
 } 
 $check=mysqli_query($con,"select id from user_account where Username=$username and email=$email ");
- 
-		 if($check == false){
+ $count=mysqli_num_rows($check);
+		 if(!$count){
 	$query= $con->prepare ( "INSERT INTO user_account (Username, Password,First_Name,Last_Name,email,Phone_Number) values ('$username','$password','$firstname','$lastname','$email','$phonenumber')");
 $query -> bind_param("ssssss",$username,$password,$firstname,$lastname,$email,$phonenumber);
 if($query->execute()){

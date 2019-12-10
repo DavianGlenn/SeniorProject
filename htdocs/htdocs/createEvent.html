@@ -176,15 +176,20 @@ if(!isset($_SESSION['logged_in'])){
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="websiteTemplate/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
-        
+         
 		    <a href="websiteTemplate/orgdash.php" class="nav-link ">
             <i class="nav-icon fas fa-home"></i>
             <p> Dashboard </p></a>
 			
 			<a href="../createevent.html" class="nav-link active">
-            <i class="nav-icon fas fa-address-card"></i>
+            <i class="nav-icon fas fa-calendar-plus"></i>
             <p>Add New Event</p></a>
+			<a href="websitetemplate/pages/examples/whosGoingOrg.php" class="nav-link  ">
+            <i class="nav-icon fas fa-question"></i>
+            <p>Who's Going?</p></a>
+			<a href="websitetemplate/pages/examples/Rate.php" class="nav-link  ">
+            <i class="nav-icon fas fa-thumbs-up"></i>
+            <p>Rated Events</p></a>
 			 
 		    <a href="../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -202,7 +207,7 @@ if(!isset($_SESSION['logged_in'])){
           <input class="form-control" type="text" name="Org_Event" placeholder="Name Of Event" >
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-user"></span>
+              <span class="fas fa-keyboard"></span>
             </div>
           </div>
         </div>
@@ -211,7 +216,7 @@ if(!isset($_SESSION['logged_in'])){
           <input type="Date" class="form-control" name="Date" placeholder="Please Enter Date of Event YYYY-MM-DD">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-calendar"></span>
             </div>
           </div>
         </div>
@@ -219,15 +224,15 @@ if(!isset($_SESSION['logged_in'])){
           <input type="Text" class="form-control" name="Place" placeholder="Where is Your Event Going To Take Place">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fas fa-map-marker"></span>
             </div>
           </div>
         </div>
 		<div class="input-group mb-3">
-          <input type="Time" class="form-control" name="Time" placeholder="Time Of Event Please Add AM or PM">
+          <input type="time" class="form-control" name="Time" placeholder="Time Of Event Please Add AM or PM">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fas fa-clock"></span>
             </div>
           </div>
         </div>

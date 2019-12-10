@@ -95,7 +95,7 @@ if(!isset($_SESSION['logged_in'])){
           <img src="../../dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block"> <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
+          <a  class="d-block"> <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
         </div>
       </div>
 
@@ -105,28 +105,20 @@ if(!isset($_SESSION['logged_in'])){
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         
-		
-		<a href="../../index.php" class="nav-link">
+		<a href="../../orgdash.php" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
             <p> Dashboard </p></a>
 			
-			<a href="profile.php" class="nav-link ">
-            <i class="nav-icon fas fa-address-card"></i>
-            <p>My profile</p></a>
-		
-           <a href="../../../websitetemplate/hobby.php" class="nav-link ">
+			<a href="../../../createevent.html" class="nav-link ">
+            <i class="nav-icon fas fa-calendar-plus"></i>
+            <p>Add New Event</p></a>
+			<a href="whosGoingOrg.php" class="nav-link active" >
+            <i class="nav-icon fas fa-question"></i>
+            <p>Who's Going?</p></a>
+			<a href="Rate.php" class="nav-link" >
             <i class="nav-icon fas fa-thumbs-up"></i>
-            <p>Hobbies</p></a>
-			
-		    <a href="../../../newc/php_event_calendar/index.php" class="nav-link">
-            <i class="nav-icon fas fa-calendar-alt"></i>
-            <p>Calendar</p></a>
-           
-			
-			<a href="contacts.html" class="nav-link ">
-            <i class="nav-icon fas fa-address-book"></i>
-            <p>Contacts</p></a>
-        
+            <p>Rated Events</p></a>
+			 
 		    <a href="../../../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>Logout</p></a>
@@ -173,15 +165,15 @@ if(!isset($_SESSION['logged_in'])){
 		<div class=container>
 		<?php
           $conn = mysqli_connect("localhost","root","","Senior Project");
-		$sql2 = "select u.first_name as first, u.last_name as last,c.title as title,c.org_name as org from user_account u, calendarevents c where type='academic' and u.id=c.userid and userid!={$_SESSION['userid']}" ;
+		$sql2 = "SELECT c.title as title,c.userid,u.first_name as first ,u.last_name as last FROM calendarevents c, user_account u where c.userid=u.ID and c.type='academic' and c.orgID={$_SESSION['userid']}" ;
 		
 	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
 	echo "<table id=customers border ='1'>";
-	echo "<tr><td>Here Are The People Going To Academic Events</td><td>Event Name</td><td>Organization Name</td></tr>\n";
+	echo "<tr><td>Here Are The People Going To Academic Events</td><td>Event Name</td></tr>\n";
 	
 	while($row=mysqli_fetch_assoc($result))
 	{
-		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td><td> {$row['org']}</td></tr>\n";
+		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td></tr>\n";
 	}
 	echo "</table>";
 	?>
@@ -211,15 +203,15 @@ if(!isset($_SESSION['logged_in'])){
 		<div class=container>
 		<?php
           $conn = mysqli_connect("localhost","root","","Senior Project");
-		$sql2 = "select u.first_name as first, u.last_name as last,c.title as title,c.org_name as org from user_account u, calendarevents c where type='social' and u.id=c.userid and userid!={$_SESSION['userid']}" ;
+		$sql2 = "SELECT c.title as title,c.userid,u.first_name as first ,u.last_name as last FROM calendarevents c, user_account u where c.userid=u.ID and c.type='social' and c.orgID={$_SESSION['userid']}" ;
 		
 	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
 	echo "<table id=customers border ='1'>";
-	echo "<tr><td>Here Are The People Going To Social Events</td><td>Event Name</td><td>Organization Name</td></tr>\n";
+	echo "<tr><td>Here Are The People Going To Social Events</td><td>Event Name</td></tr>\n";
 	
 	while($row=mysqli_fetch_assoc($result))
 	{
-		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td><td> {$row['org']}</td></tr>\n";
+		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td></tr>\n";
 	}
 	echo "</table>";
 	?>
@@ -246,15 +238,15 @@ if(!isset($_SESSION['logged_in'])){
 		<div class=container>
 		<?php
           $conn = mysqli_connect("localhost","root","","Senior Project");
-		$sql2 = "select u.first_name as first, u.last_name as last,c.title as title,c.org_name as org from user_account u, calendarevents c where type='Community Service' and u.id=c.userid and userid!={$_SESSION['userid']}" ;
+		$sql2 = "SELECT c.title as title,c.userid,u.first_name as first ,u.last_name as last FROM calendarevents c, user_account u where c.userid=u.ID and c.type='community service' and c.orgID={$_SESSION['userid']}" ;
 		
 	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
 	echo "<table id=customers border ='1'>";
-	echo "<tr><td>Here Are The People Going To Community Service Events</td><td>Event Name</td><td>Organization Name</td></tr>\n";
+	echo "<tr><td>Here Are The People Going To Community Service Events</td><td>Event Name</td></tr>\n";
 	
 	while($row=mysqli_fetch_assoc($result))
 	{
-		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td><td> {$row['org']}</td></tr>\n";
+		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td></tr>\n";
 	}
 	echo "</table>";
 	?>
@@ -284,15 +276,15 @@ if(!isset($_SESSION['logged_in'])){
 		<div class=container>
 		<?php
           $conn = mysqli_connect("localhost","root","","Senior Project");
-		$sql2 = "select u.first_name as first, u.last_name as last,c.title as title,c.org_name as org from user_account u, calendarevents c where type='Career Opportunity' and u.id=c.userid and userid!={$_SESSION['userid']}" ;
+		$sql2 = "SELECT c.title as title,c.userid,u.first_name as first ,u.last_name as last FROM calendarevents c, user_account u where c.userid=u.ID and c.type='career opportunity' and c.orgID={$_SESSION['userid']}" ;
 		
 	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
 	echo "<table id=customers border ='1'>";
-	echo "<tr><td>Here Are The People Going To Career Opportunity Events</td><td>Event Name</td><td>Organization Name</td></tr>\n";
+	echo "<tr><td>Here Are The People Going To Career Opportunity Events</td><td>Event Name</td></tr>\n";
 	
 	while($row=mysqli_fetch_assoc($result))
 	{
-		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td><td> {$row['org']}</td></tr>\n";
+		echo"<tr><td> {$row['first']} {$row['last']}</td><td> {$row['title']}</td></tr>\n";
 	}
 	echo "</table>";
 	?>

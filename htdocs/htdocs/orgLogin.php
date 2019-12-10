@@ -16,15 +16,15 @@ session_start();
 		echo  "<meta http-equiv=\"refresh\" content=\"2;url=orgLogin.html\"/>";  
 		
 	} else {
-	  session_start();
-    $_SESSION['logged_in'] = true;
+	  
+   
 		   $row = mysqli_fetch_array($result);
 		   $_SESSION['use']=$row[1];
 		   $_SESSION['userid']=$row[0];
 		   echo $_SESSION['use'];
-	
+	 $_SESSION['logged_in'] = true;
 echo  "<meta http-equiv=\"refresh\" content=\"2;url=websiteTemplate\orgDash.php\"/>";           //  On Successful Login redirects to dashboard
-	echo "logged in";
+	echo " logged in";
 }		 
 
  

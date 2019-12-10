@@ -1,5 +1,5 @@
 <?php
-session_start();
+include"../users.php";
 if(!isset($_SESSION['logged_in'])){ 
       header("Location:../index.html");}  
 ?>
@@ -8,7 +8,7 @@ if(!isset($_SESSION['logged_in'])){
 <html>
 <head>
 <style media="screen">
-    .container { border:2px solid #ccc; width:300px; height: 100px; overflow-y: scroll;  position: left; background-color:#ffffff;}
+    .container { border:2px solid #ccc; width:300px; height: 200px; overflow-y: scroll;  position: left; background-color:#ffffff;}
 	
 	#customers {
 	  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -133,10 +133,7 @@ if(!isset($_SESSION['logged_in'])){
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>-
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-	  
-        <a href="index.php" class="nav-link">Home
-		
-		</a>
+        <a href="index.php" class="nav-link">Home</a>
       </li>
 
     </ul>
@@ -159,11 +156,20 @@ if(!isset($_SESSION['logged_in'])){
     <a href="index.php" class="brand-link">
       <img src="dist/img/ncatLogo.png" alt="North Carolina A&T Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Calendly for Orgs</span>
+      <span class="brand-text font-weight-light">Calendly for students</span>
     </a>
 
 
-  
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a > <?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
+        </div>
+      </div>
 
 
       
@@ -172,29 +178,417 @@ if(!isset($_SESSION['logged_in'])){
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a><?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
-        </div>
-      </div>
-		    <a href="index.php" class="nav-link active">
+           <a href="index.php" class="nav-link active">
             <i class="nav-icon fas fa-home"></i>
             <p> Dashboard </p></a>
 			
 			<a href="../createevent.html" class="nav-link ">
-            <i class="nav-icon fas fa-address-card"></i>
+            <i class="nav-icon fas fa-calendar-plus"></i>
             <p>Add New Event</p></a>
+			<a href="pages/examples/whosGoingOrg.php" class="nav-link ">
+            <i class="nav-icon fas fa-question"></i>
+            <p>Who's Going?</p></a>
+			<a href="pages/examples/Rate.php" class="nav-link ">
+            <i class="nav-icon fas fa-thumbs-up"></i>
+            <p>Rated Events</p></a>
 			 
 		    <a href="../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>Logout</p></a>
 			
 		
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Organization Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#"></a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+ 
+         <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-registered"></i>
+		Registered Events          </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+           <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-graduation-cap"></i>
+				Academic                </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+          <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                   <form action="" method="post">
+             <div class=container>   
+  <?php 
+	error_reporting(E_ERROR | E_PARSE); 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT id,event, date, type, location ,TIME_FORMAT(Time, '%h:%i%p') as time from orgevents where Orgid='{$_SESSION['userid']}' and type ='academic'") or die("Bad Querey");
+	
+
+	echo "<table id='customers' border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Delete Event</td>
+	<td>Event</td>
+	<td>Location</td>
+	<td>Date</td>
+	<td>Type</td>
+	<td>Time</td>
+	 </tr>\n";
+	 $count=1;
+	;
+	while($row=mysqli_fetch_assoc($result))
+	{
+ $a="";
+	$a ="n_";
+	$a .= $row['id'];
+	
+	echo "<tr>	<td> <input type='checkbox' name='$a'></td>
+                  <td>{$row['event']}</td>
+                  <td>{$row['location']}</td> 
+				  <td>{$row['date']}</td> 
+				  <td>{$row['type']}</td>
+				  <td>{$row['time']}</td>
+               
+                   </tr>";
+               
+			
+			   
+			  
+			   if(isset($_POST[$a])){
+		$into=mysqli_query($con,"DELETE FROM orgevents WHERE Orgid='{$_SESSION['userid']}' AND Event= '{$row['event']}' ");	
+		echo "<meta http-equiv=\"refresh\" content=\".5;url=orgDash.php\"/>";
+			 
+		 }   $count++;
+      }
+	
+	echo "</table>";
+	
+	 
+	 
+	 
+	
+	
+	?> </div><input type='submit'name='submit2' value='Delete Event'>
+   </div> 
+    
    
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+    </div> <!-- /container -->
+
+            <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-users mr-1"></i>
+                  Social
+                </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                   <form action="" method="post">
+          <div class=container>   
+	<?php 
+	error_reporting(E_ERROR | E_PARSE); 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT id, event, date, type, location ,TIME_FORMAT(Time, '%h:%i%p') as time from orgevents where Orgid='{$_SESSION['userid']}' and type ='social'") or die("Bad Querey");
+	
+
+	echo "<table id='customers' border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Delete Event</td>
+	<td>Event</td>
+	<td>Location</td>
+	<td>Date</td>
+	<td>Type</td>
+	<td>Time</td>
+	 </tr>\n";
+	
+	while($row=mysqli_fetch_assoc($result))
+	{ $count=1;
+	$a="";
+	$a ="b_";
+	$a .= $row['id'];
+
+	echo "<tr>	<td> <input type='checkbox' name='$a'></td>
+                  <td>{$row['event']}</td>
+                  <td>{$row['location']}</td> 
+				  <td>{$row['date']}</td> 
+				  <td>{$row['type']}</td>
+				  <td>{$row['time']}</td>
+                 
+                  
+               </tr>";
+			    $count++;
+			   
+			   if(isset($_POST[$a])){
+		$into=mysqli_query($con,"DELETE FROM orgevents WHERE Orgid='{$_SESSION['userid']}' AND Event= '{$row['event']}' ");	
+		echo "<meta http-equiv=\"refresh\" content=\".5;url=orgDash.php\"/>";
+			 
+		 }
+      }
+	
+	echo "</table>";
+	
+	 
+	 
+	 
+	
+	
+	?> </div><input type='submit'name='submit2' value='Delete Event'>
+   
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+    </div> 
+	</div>
+	</div>
+   <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-handshake"></i>
+				Community Service
+                </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+            <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                   <form action="" method="post">
+          <div class=container> 
+             
+	<?php 
+	error_reporting(E_ERROR | E_PARSE); 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT id, event, date, type, location ,TIME_FORMAT(Time, '%h:%i%p') as time from orgevents where Orgid='{$_SESSION['userid']}' and type ='community service'") or die("Bad Querey");
+	
+
+	echo "<table id='customers' border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Delete Event</td>
+	<td>Event</td>
+	<td>Location</td>
+	<td>Date</td>
+	<td>Type</td>
+	<td>Time</td>
+	 </tr>\n";
+	
+	while($row=mysqli_fetch_assoc($result))
+	{ $count=1;
+	 $a="";
+	$a ="c_";
+	$a .= $row['id'];
+
+	echo "<tr>	<td> <input type='checkbox' name='$a'></td>
+                  <td>{$row['event']}</td>
+                  <td>{$row['location']}</td> 
+				  <td>{$row['date']}</td> 
+				  <td>{$row['type']}</td>
+				  <td>{$row['time']}</td>
+                  
+                  
+               </tr>";
+			   $count++;
+			   
+			   if(isset($_POST[$a])){
+		$into=mysqli_query($con,"DELETE FROM orgevents WHERE Orgid='{$_SESSION['userid']}' AND Event= '{$row['event']}' ");	
+		echo "<meta http-equiv=\"refresh\" content=\".5;url=orgDash.php\"/>";
+			 
+		 }
+      }
+	
+	echo "</table>";
+	
+	 
+	 
+	 
+	
+	
+	?> </div><input type='submit'name='submit2' value='Delete Event'>
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+    </div> <!-- /container -->
+</li>
+ </ul>
+</div> 
+ <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-briefcase"></i>
+				Career Opportunities
+                </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                   <form action="" method="post">
+          <div class=container> 
+             
+	<?php 
+	error_reporting(E_ERROR | E_PARSE); 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT event, date, type, location ,TIME_FORMAT(Time, '%h:%i%p') as time from orgevents where Orgid='{$_SESSION['userid']}' and type ='Career opportunities'") or die("Bad Querey");
+	
+
+	echo "<table id='customers' border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Delete Event</td>
+	<td>Event</td>
+	<td>Location</td>
+	<td>Date</td>
+	<td>Type</td>
+	<td>Time</td>
+	 </tr>\n";
+	 
+	while($row=mysqli_fetch_assoc($result))
+	{$count=1;
+	 $a="";
+	$a ="d_";
+	$a .= $row['id'];
+
+	echo "<tr>	<td> <input type='checkbox' name='$a'></td>
+                  <td>{$row['event']}</td>
+                  <td>{$row['location']}</td> 
+				  <td>{$row['date']}</td> 
+				  <td>{$row['type']}</td>
+				  <td>{$row['time']}</td>
+                  
+                  
+               </tr>";
+			   $count++;
+			   
+			   if(isset($_POST[$a])){
+		$into=mysqli_query($con,"DELETE FROM orgevents WHERE Orgid='{$_SESSION['userid']}' AND Event= '{$row['event']}' ");	
+		echo "<meta http-equiv=\"refresh\" content=\".5;url=orgDash.php\"/>";
+			 
+		 }
+      }
+	
+	echo "</table>";
+	
+	 
+	 
+	 
+	
+	
+	?> </div><input type='submit'name='submit2' value='Delete Event'>
+    
+   
+			<script type ="text/javascript">
+			function mess() {
+   alert(" Your event was added");
+   return true;
+}
+</script>
+        </form>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+    </div> <!-- /container -->
+</li>
+ </ul>
+</div> 
 </body>
 </html>

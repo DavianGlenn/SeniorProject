@@ -66,11 +66,20 @@ if(isset($_POST["Interest12"])){
 		   }
 if(isset($_POST["Interest13"])){
 			   
-	$result = mysqli_query($conn,"Insert into checkbox (user_interest,Event_ID,userid) values ('Agriculture',13,'{$_SESSION['userid']}')");
+	$result = mysqli_query($conn,"Insert into checkbox (user_interest,Event_ID,userid) values ('Agriculture','13','{$_SESSION['userid']}')");
        
 
-		   }
+		   }			   
 		   
+		   
+		   $customerVar = $_POST['First_Name'];
+		  if(!empty($customerVar)){
+$result = mysqli_query($conn,"Insert into checkbox (user_interest,Event_ID,userid) values ('$customerVar','14','{$_SESSION['userid']}')");
+		  }
+       
+		   
+		   
+		   echo"Thanks for providing us with this information please login with your username and password!";
 		echo "<meta http-equiv=\"refresh\" content=\"2;url=../WebsiteTemplate/index.php\"/>";
 		   
 		   

@@ -33,8 +33,9 @@ if($count){
 		   $_SESSION['use']=$row[1];
 		   $_SESSION['userid']=$row[0];
 		   echo $_SESSION['use'];
-		echo  "Org Was Added";
-echo "<meta http-equiv=\"refresh\" content=\"2;url=../createEvent.html\"/>";		
+		   $_SESSION['logged_in']=true;
+		echo  " Org is Registered. Now user your organizations name and password to login";
+echo "<meta http-equiv=\"refresh\" content=\"3;url=../orglogin.html\"/>";		
 		 }
 		 
 

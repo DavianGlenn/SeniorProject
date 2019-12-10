@@ -8,12 +8,12 @@ if(!isset($_SESSION['logged_in'])){
 <head>
 <style media="screen">
 input[type=text] {
-  width: 100%;
+  width: 150%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
 }
-    .container { border:2px solid #ccc; width:300px; height: 500px; overflow-y: scroll;  position: left; background-color:#ffffff;}
+    .container { border:5px solid #ccc; width:350px; height: 500px; overflow-y: scroll;  position: left; background-color:#ffffff;}
 	
 	#customers {
 	  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -123,7 +123,7 @@ input[type=text] {
             <p>Hobbies</p></a>
 		
            
-		    <a href="../calendar.php" class="nav-link">
+		    <a href="../../../newc/php_event_calendar/index.php" class="nav-link">
             <i class="nav-icon fas fa-calendar-alt"></i>
             <p>Calendar</p></a>
            
@@ -151,7 +151,7 @@ input[type=text] {
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              
               
             </ol>
           </div>
@@ -176,18 +176,34 @@ input[type=text] {
 
                 <h3 class="profile-username text-center"><?php if(isset($_SESSION['use'])){{echo $_SESSION['First'];echo" "; echo $_SESSION['Last'];echo " Profile";}} ?></h3>
 
-                <p class=" text-center">Software Engineer</p>
+                <p class=" text-center">NCAT Student</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Activities this month</b> <a class="float-right">5</a>
+                    <b>Activities Registered For</b> <a class="float-right"><?php   
+					 $host = "localhost";
+					  $dbusername = "root";
+					  $dbpassword = "";
+					  $dbname = "Senior Project";
+// Create connection
+ $conn = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+		$sql2 = "SELECT title  from calendarevents where userid='{$_SESSION['userid']}'" ;
+		
+	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
+	
+	$count = 0;
+	while($row=mysqli_fetch_assoc($result))
+	{
+		$count++;
+		
+	}echo $count;
+	
+	 ?></a>
                   </li>
-                  <li class="list-group-item">
-                    <b>Buddies to meet</b> <a class="float-right">3</a>
-                  </li>
+                
                 </ul>
 
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Enterusername@aggies.ncat.edu&su=Hey Friend!&body=Say Hello!" class="btn btn-primary btn-block"><b>Email</b></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Enterusername@aggies.ncat.edu&su=Hey Friend!&body=Say Hello!" target="_blank" class="btn btn-primary btn-block"><b> Send Email</b></a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -196,182 +212,63 @@ input[type=text] {
             <!-- About Me Box -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">About Me</h3>
+                <h3 class="card-title">Success coach</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <strong><i class="fas fa-book mr-1"></i> Education</strong>
 
-                <p class="text-muted">
-                  What is your level of education?
+                <p class="text-muted" id="educationTip">
+                  Go into each class knowing you will pass!
                 </p>
 
                 <hr>
 
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Career</strong>
 
-                <p class="text-muted">Where are you from?</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">Add Skills Here.</span>
-                 
+                <p class="text-muted" id="careerTip">
+                   Narrow down what you want to do for a living. Employers like to know that you have a goal in mind!
                 </p>
 
                 <hr>
 
-                <strong><i class="far fa-file-alt mr-1"></i> Fun Fact</strong>
+                <strong><i class="fab fa-angellist mr-1"></i> Social</strong>
 
-                <p class="text-muted">What else should we know?</p>
+                <p class="text-muted" id="socialTip">
+                     One really supportive friends is better than 3 that dont care!
+                </p>
+
+                <hr>
+
+                <a onclick="generateNew()" class="btn btn-primary btn-block"><b>Suggest new tips</b></a>
+               
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
+          <script src="../../../js/generateTips.js"></script>
           <!-- /.col -->
           <div class="col-md-9">
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
+                 
                   <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Events</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                 
                 </ul>
               </div><!-- /.card-header -->
+			  
               <div class="card-body">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/avatar.png" alt="user image">
-                        <span class="username">
-                          <a href="#">Bio</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Shared publicly </span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                      <form action="" method="post">
-						<label>Please Edit Your Bio:</label> <input type="text" name="bio"/><br><br>
-						<input name="form" type="submit" value="Submit"/><br><br>
-						</form>
-                      </p>
-					 
-
-					  <?php 
-					  $host = "localhost";
-					  $dbusername = "root";
-					  $dbpassword = "";
-					  $dbname = "Senior Project";
-// Create connection
- $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
-					  
-							$bio=filter_input(INPUT_POST, 'bio');
-							$query=mysqli_query($con,"insert into Profile (Bio,user_id) values ('$bio','{$_SESSION['userid']}') ");
-							
-				
-
-						?>
-
-
-                    </div>
-                    <!-- /.post -->
-
-                    <!-- Post -->
-                    <!--<div class="post clearfix">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/avatar.png" alt="User Image">
-                        <span class="username">
-                          <a href="#">My status</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">recently</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <!--<p>
-                        Chemistry sucks!
-                      </p>
-
-                      <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                          <input ID="statusUpdate" class="form-control form-control-sm" placeholder="Response">
-                          <div class="input-group-append">
-                            <button onClick = updateStatus() type="submit" class="btn btn-danger">update</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>-->
-					
-                    <!--<script>
-function updateStatus() {
-  var x = document.getElementById("statusUpdate").textContent;
-  document.getElementById("myStatus").innerHTML = x;  
-}
-</script>-->				
-                    <!-- /.post -->
-
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                        <strong><i class="fas fa-camera"></i> Photo Gallery</strong>
-                        <span class="username">
-                          <!--<a href="#">Photo Gallery</a>-->
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description"></span>
-                      </div>
-                      <!-- /.user-block -->
-                      <div class="row mb-3">
-                        <div class="col-sm-6">
-                          <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                          <div class="row">
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
-                              <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
-                              <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                          </div>
-                          <!-- /.row -->
-                        </div>
-                        <!-- /.col -->
-                      </div>
-                      <!-- /.row -->
-
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
-
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    <!-- /.post -->
-                  </div>
+                
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="timeline" name="Your Events">
 				  <h3>Here are the Events You Chose to Attend</h3>
                     <!-- The timeline -->
                     <div class="timeline timeline-inverse">
                       <!-- timeline time label -->
-                         <div class="container">
-					  <?php
+                        <form action="" method="POST"> <div class="container">
+					<?php
                     
 					 $host = "localhost";
 					  $dbusername = "root";
@@ -379,21 +276,115 @@ function updateStatus() {
 					  $dbname = "Senior Project";
 // Create connection
  $conn = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
-		$sql2 = "SELECT title,c.date as date,TIME_FORMAT(Time, '%h:%i%p') as Time FROM calendarevents c JOIN orgevents ON title = orgevents.Event WHERE userid='{$_SESSION['userid']}'" ;
+		$sql2 = "SELECT title,c.id as id,c.date as date,TIME_FORMAT(Time, '%h:%i%p') as Time FROM calendarevents c JOIN orgevents ON title = orgevents.Event WHERE userid='{$_SESSION['userid']}'" ;
 		
 	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
 	echo "<table id =customers border ='1'>";
-	echo "<tr><td>Here are the Events You Chose to Attend</td><td>Date</td><td>Time</td></tr>\n";
+	echo "<tr><td>Delete Event</td><td>Here are the Events You Chose to Attend</td><td>Date</td><td>Time</td></tr>\n";
+	
 	
 	while($row=mysqli_fetch_assoc($result))
 	{
-		echo"<tr><td> {$row['title']}</td><td> {$row['date']}</td><td> {$row['Time']}</td></tr>\n";
+	$count=0;$a="";
+	$a ="n_";
+	$a .=$row['id'];
+		echo"<tr><td> <input type='checkbox' name='$a'></td><td> {$row['title']}</td><td> {$row['date']}</td><td> {$row['Time']}</td></tr>\n";
+			
+		 
+	if(isset($_POST[$a])){
+		$into=mysqli_query($conn,"DELETE FROM calendarevents WHERE id ='{$row['id']}' and userid= '{$_SESSION['userid']}' AND title= '{$row['title']}' ");	
+		echo "<meta http-equiv=\"refresh\" content=\"3;url=profile.php\"/>";
+			 
+		 }
+		  $count++; 
 	}
+	
+	
+	
 	echo "</table>";
 	
 	
-                     ?> 
-                      </div>
+                     ?>  
+                      </div><input type='submit'name='submit2' value='Delete Event' onclick='btnClick();'>
+                    </form>
+                  </div>
+				 
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+		     <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                 
+                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Rate</a></li>
+                 
+                </ul>
+              </div><!-- /.card-header -->
+			  
+              <div class="card-body">
+                
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="timeline" name="Your Events">
+				  <h3>Rate the Events You Chose to Attend</h3>
+                    <!-- The timeline -->
+                    <div class="timeline timeline-inverse">
+                      <!-- timeline time label -->
+                        <form action="" method="POST"> <div class="container">
+					<?php
+                    error_reporting(E_ERROR | E_PARSE);
+					 $host = "localhost";
+					  $dbusername = "root";
+					  $dbpassword = "";
+					  $dbname = "Senior Project";
+// Create connection
+ $conn = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+		$sql2 = "SELECT id,type, org_name,title FROM `calendarevents` where date <= CURRENT_DATE and userid='{$_SESSION['userid']}'" ;
+		
+	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
+	echo "<table id =customers border ='1'>";
+	echo "<td>Please Rate the Events You Chose to Attend</td><td>Dissapointed</td><td>Satisfied</td><td>Excellent</td></tr>\n";
+	
+	
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$count=0;
+	$a="";
+	$a ="q_";
+	$a .=$row['id'];
+
+		echo"<tr><td> {$row['title']}</td><td> <input type='radio' name='$a' Value='Dissapointed'></td><td> <input type='radio' name='$a' Value='Satisfied'></td><td> <input type='radio' name='$a' Value='Excellent'></td></tr>\n";
+			
+		 $answer = $_POST[$a];
+	if($answer=="Dissapointed"){
+		$into=mysqli_query($conn,"Insert into rate_events (Event,Rate,Userid,org_name,type) values ('{$row['title']}','Dissapointed','{$_SESSION['userid']}','{$row['org_name']}','{$row['type']}') ");	
+		echo "";
+			 }	if($answer=="Satisfied"){
+		$into=mysqli_query($conn,"Insert into rate_events (Event,Rate,Userid,org_name,type) values ('{$row['title']}','Satisfied','{$_SESSION['userid']}','{$row['org_name']}','{$row['type']}') ");	
+		echo "";
+			 }	if($answer=="Excellent"){
+		$into=mysqli_query($conn,"Insert into rate_events (Event,Rate,Userid,org_name,type) values ('{$row['title']}','Excellent','{$_SESSION['userid']}','{$row['org_name']}','{$row['type']}') ");	
+		echo "";
+			 }
+		  
+	}
+	
+	
+	
+	echo "</table>";
+	
+	
+                     ?>  
+                      </div><input type='submit'name='submit2' value='Submit' onclick='btnClick();'>
+					  <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
                     </form>
                   </div>
 				 
@@ -416,7 +407,7 @@ function updateStatus() {
     <div class="float-right d-none d-sm-block">
       <b></b> 
     </div>
-    <strong> <a href="#"</a>.</strong> 
+    <strong> <a href="#"></a>.</strong> 
   </footer>
 
   <!-- Control Sidebar -->

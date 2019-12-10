@@ -66,7 +66,10 @@
         echo $checkBoxClass->addtoDatabase13();
     };
 	
-
+$customerVar = $_POST['First_Name'];
+		  if(!empty($customerVar)){
+$result = mysqli_query($conn,"Insert into checkbox (user_interest,Event_ID,userid) values ('$customerVar','14','{$_SESSION['userid']}')");
+		  }
 	//header('Location: hobbies.php');
 ?>
 <!DOCTYPE html>
@@ -94,7 +97,7 @@
             <input type="checkbox" id="Interest" name="Interest11" value="Creative Writing">Creative Writitng<br/>
             <input type="checkbox" id="Interest" name="Interest12" value="Science and Technology">Science and Technology<br/>
             <input type="checkbox" id="Interest" name="Interest13" value="Agriculture">Agriculture<br/>
-          
+			OTHER: <input type="text" name="First_Name"><br>
             
             <br/><br/>
 			<button onclick="location.href='index.php'" type="button">

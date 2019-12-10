@@ -11,7 +11,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 <html>
 <head>
 <style media="screen">
-    .containers { border:2px solid #ccc; width:350px; height: 100px; overflow-y: scroll;  position: left; background-color:#ffffff;}
+    .containers { border:2px solid #ccc; width:375px; height: 150px; overflow-y: scroll;  position: left; background-color:#ffffff;}
 	
 	#customers {
 	  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -132,7 +132,7 @@ error_reporting(E_ALL & ~E_NOTICE);
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <a href="index.php" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <i class="nav-icon fas fa-home"></i>
             <p>
              Dashboard
 
@@ -142,13 +142,10 @@ error_reporting(E_ALL & ~E_NOTICE);
             <p>My profile</p></a>
 			 
 			
-            <a href="pages/calendar.php" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Calendar
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
+            
+		    <a href="../newc/php_event_calendar/index.php" class="nav-link">
+            <i class="nav-icon fas fa-calendar-alt"></i>
+            <p>Calendar</p></a>
           </a>
 		  <a href="hobby.php" class="nav-link active">
             <i class="nav-icon far fa-thumbs-up"></i>
@@ -243,7 +240,12 @@ if(isset($_POST["Interest"])){
         include_once '../CreateAccount2/checkboxclass.php';
         $checkBoxClass=new checkboxclass();
         echo $checkBoxClass->addtoDatabase13();
-    };
+    }
+	$conn = mysqli_connect("localhost","root","","Senior Project");
+	$customerVar = $_POST['First_Name'];
+		  if(!empty($customerVar)){
+$result = mysqli_query($conn,"Insert into checkbox (user_interest,Event_ID,userid) values ('$customerVar','14','{$_SESSION['userid']}')");
+		  }
 ?>
 
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
@@ -260,33 +262,51 @@ if(isset($_POST["Interest"])){
             <input type="checkbox" id="Interest" name="Interest11" value="Creative Writing">Creative Writitng<br/>
             <input type="checkbox" id="Interest" name="Interest12" value="Science and Technology">Science and Technology<br/>
             <input type="checkbox" id="Interest" name="Interest13" value="Agriculture">Agriculture<br/>
-          
+			OTHER: <input type="text" name="First_Name"><br>
+			
+           <a href="index.php"><input type="submit" id="submit" name="submit" value="Add Your Hobbies" class="btn btn-primary"></a>
             
             <br/><br/>
 			
-            <a href="index.php"><input type="submit" id="submit" name="submit" value="Update Hobbies" class="btn btn-primary"></a>
+           
         </form>
 		<script>
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
+
+<form action="" method="POST">
 <div class=containers>
 <?php
+
 $conn = mysqli_connect("localhost","root","","Senior Project");
-		$sql = "SELECT user_interest from checkbox where userid = '{$_SESSION['userid']}'" ;
 		
-	$result= mysqli_query($conn,$sql) or die("Badd Query:$sql");
+		
+	$result= mysqli_query($conn, "SELECT user_interest,id from checkbox where userid = '{$_SESSION['userid']}'") or die("Badd Query:$sql");
 	echo "<table id='customers' border ='1'>";
-	echo "<tr><td>Here's Your Hobbies</td></tr>\n";
-	
+	echo "<tr><td>Delete Hobby</td><td>Here's Your Hobbies</td></tr>\n";
+	$count=1;
 	while($row=mysqli_fetch_assoc($result))
-	{
-		echo"<tr><td> {$row['user_interest']}</td></tr>\n";
+	{;$a="";
+	$a ="n_";
+	$a .= $row['id'];
+	
+		echo"<tr> <td> <input type='checkbox' name='$a'></td> <td> {$row['user_interest']}</td> </tr>";
+		 $count++; 	
+		 
+	if(isset($_POST[$a])){
+		$into=mysqli_query($conn,"DELETE FROM checkbox WHERE userid= '{$_SESSION['userid']}' AND user_interest= '{$row['user_interest']}' ");	
+		echo "<meta http-equiv=\"refresh\" content=\".5;url=hobby.php\"/>";
+			 
+		 }
+		 
 	}
 	echo "</table>";
 ?>
 </div>
+<input type="submit" name ="delete"value="Confirm Delete" class="btn btn-primary">
+</form>
     </div> <!-- /container -->
 	</div>
 <!-- Bootstrap 4 -->
