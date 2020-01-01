@@ -1,4 +1,7 @@
 <?php
+session_start();
+?>
+<?php
 /*
  * Load function based on the Ajax request
  */
@@ -179,7 +182,7 @@ function getEvents($date = ''){
 	$date = $date?$date:date("Y-m-d");
 	
 	// Fetch events based on the specific date
-	$result = $db->query("SELECT title FROM calendarevents WHERE date = '".$date."' AND status = 1");
+	$result = $db->query("SELECT title FROM calendarevents WHERE date = '".$date."' AND status = 1 and userid='{$_SESSION['userid']}'");
 	if($result->num_rows > 0){
 		$eventListHTML = '<h2>Events on '.date("l, d M Y",strtotime($date)).'</h2>';
 		$eventListHTML .= '<ul>';
@@ -190,4 +193,3 @@ function getEvents($date = ''){
 	}
 	echo $eventListHTML;
 }
-?>

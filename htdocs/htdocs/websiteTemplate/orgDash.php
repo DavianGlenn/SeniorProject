@@ -100,25 +100,25 @@ if(!isset($_SESSION['logged_in'])){
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="websitetemplate/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="websitetemplate/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="websitetemplate/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="websitetemplate/plugins/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="websitetemplate/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="websitetemplate/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="websitetemplate/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
-  <link rel="stylesheet" href="websitetemplate/plugins/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
   <!-- Table Style -->
-  <link rel="stylesheet" href="websitetemplate/css/tables.css">
+  <link rel="stylesheet" href="../css/tables.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -157,7 +157,7 @@ if(!isset($_SESSION['logged_in'])){
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index.php" class="brand-link">
-      <img src="websitetemplate/dist/img/ncatLogo.png" alt="North Carolina A&T Logo" class="brand-image img-circle elevation-3"
+      <img src="dist/img/ncatLogo.png" alt="North Carolina A&T Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Calendly for Orgs</span>
     </a>
@@ -176,96 +176,25 @@ if(!isset($_SESSION['logged_in'])){
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="websiteTemplate/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
-        
-		    <a href="websiteTemplate/orgdash.php" class="nav-link ">
+          <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a><?php if(isset($_SESSION['use'])){{ echo $_SESSION['use'];}} ?></a>
+        </div>
+      </div>
+		    <a href="index.php" class="nav-link active">
             <i class="nav-icon fas fa-home"></i>
             <p> Dashboard </p></a>
 			
-			<a href="../createevent.html" class="nav-link active">
+			<a href="../createevent.html" class="nav-link ">
             <i class="nav-icon fas fa-address-card"></i>
             <p>Add New Event</p></a>
 			 
 		    <a href="../Logout/logout.php" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>Logout</p></a>
-			</ul>
-			</nav>
-</aside>
-<div class="content-wrapper">
-  <div class="card-body">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Register Your Event</p>
-
-     <form action="php/createevent.php" method="post">
-        <div class="input-group mb-3">
-          <input class="form-control" type="text" name="Org_Event" placeholder="Name Of Event" >
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
+			
 		
-        <div class="input-group mb-3">
-          <input type="Date" class="form-control" name="Date" placeholder="Please Enter Date of Event YYYY-MM-DD">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="Text" class="form-control" name="Place" placeholder="Where is Your Event Going To Take Place">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-		<div class="input-group mb-3">
-          <input type="Time" class="form-control" name="Time" placeholder="Time Of Event Please Add AM or PM">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-		<div class="input-group mb-3">
-			<h2>What Type Of Event Is It?</h2>
-			</div><div>
-          <input type="radio" name="Event" value="Academic">Academic</input><br>
-		  </div>
-		  <br><input type="radio" name="Event" value="Social"> Social</br>
-		 <br> <input type="radio"  name="Event" value="Community Service"> Community Service<br></br>
-		  <input type="radio" name="Event" value="Career Opportunities">Career Opportunities</br>
-          <div class="input-group-append">
-                     <div class="col-4">
-           <input type="submit" name="submit" value="register">
-          </div>
-            </div>
-          </div>
-        </div>
-        
-          
-          <!-- /.col -->
-
-          <!-- /.col -->
-        </div>
-      </form>
-
-      
-    </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-<!-- /.register-box -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+   
 </body>
 </html>

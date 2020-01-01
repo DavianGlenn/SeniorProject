@@ -133,10 +133,7 @@ if(!isset($_SESSION['logged_in'])){
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>-
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-	  
-        <a href="index.php" class="nav-link">Home
-		
-		</a>
+        <a href="index.php" class="nav-link">Home</a>
       </li>
 
     </ul>
@@ -197,7 +194,7 @@ if(!isset($_SESSION['logged_in'])){
             
 		
            
-		    <a href="../newc/php_event_calendar/studentCal.php" class="nav-link">
+		    <a href="../newc/php_event_calendar/index.php" class="nav-link">
             <i class="nav-icon fas fa-calendar-alt"></i>
             <p>Calendar</p></a>
            
@@ -218,7 +215,6 @@ if(!isset($_SESSION['logged_in'])){
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -304,31 +300,12 @@ if(!isset($_SESSION['logged_in'])){
           </div>
           <!-- ./col -->
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
-      
-            <!-- Social List -->
-            
-              <!-- /.card-header -->
-			  
-          <div class="card-body">			
-			  
-                <ul class="todo-list" data-widget="todo-list">
-                   <form action="" method="post">
-             
-
-			 
-    
-	
-  
-
-    </div> <!-- /container -->
-	 <div class="card- body">
-	 
+         <!-- Social List -->
+            <div class="card- body">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-bell"></i>
-				Reminders                </h3>
+                  <i class="fas fa-graduation-cap"></i>
+				Reminders              </h3>
 
               
               </div>
@@ -337,7 +314,7 @@ if(!isset($_SESSION['logged_in'])){
 			
 			  
                 <ul class="todo-list" data-widget="todo-list">
-              
+                   <form action="" method="post">
              <div class=container>   
          
 	<?php 
@@ -377,8 +354,95 @@ $dbname = "Senior Project";
 	
 	 
 	
-	?></div>
-   
+	?></div><input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
+   </div> 
+		<!-- /.row -->
+        <!-- Main row -->
+      
+            <!-- Social List -->
+            <div class="card- body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-graduation-cap"></i>
+				Academic                </h3>
+
+              
+              </div>
+              <!-- /.card-header -->
+          <div class="card-body">
+			
+			  
+                <ul class="todo-list" data-widget="todo-list">
+                   <form action="" method="post">
+             <div class=container>   
+         
+	<?php 
+	error_reporting(E_ERROR | E_PARSE); 
+	$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "Senior Project";
+// Create connection
+ $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
+ 
+	$result=mysqli_query($con, "SELECT date_format(Date, '%Y-%m-%d') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Academic' ") or die("Bad Querey");
+	
+
+	echo "<table id='customers' border =''>";
+	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
+	echo "<tr>
+	<td>Select Event</td>
+	
+	<td>Organization Name</td>
+	<td>Event</td> 
+	<td>Event Location</td> 
+	
+	<td>Date</td> 
+	<td>Time</td> </tr>\n";
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$a="";
+	$a ="n_";
+	$a .= $count2;
+	$orgID=$row['orgID'];
+
+	echo "<tr></tr><tr>
+	<td><input type='checkbox' name='$a'></td>
+                  <td>{$row['org_name']}</td>
+                  <td>{$row['event']}</td>
+				  
+				  
+                  <td>{$row['Location']}</td>
+                  <td>{$row['Date']}</td>
+                  <td>{$row['time']}</td>
+                  
+                  
+               </tr>";
+         $count2++; 	
+		 
+	if(isset($_POST[$a])){
+		$result2 = mysqli_query($con,"SELECT * FROM `calendarevents` WHERE userid='{$_SESSION['userid']}' and title='{$row['event']}'");
+		$check=mysqli_num_rows($result2);
+		if(!$check){
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO calendarevents( title,userid,status,date,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','1','{$row['Date']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
+		 }else{
+			 
+			 echo "{$row['event']} has already been added to your calendar.";
+		 }
+	}
+      }
+	
+	echo "</table>";
+	
+	 
+	 
+	 
+	
+	 
+	
+	?></div><input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
+   </div> 
     
    
 			<script type ="text/javascript">
@@ -395,110 +459,8 @@ $dbname = "Senior Project";
 </script>
     </div> <!-- /container -->
 
-
             <!-- Social List -->
             <div class="card- body">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-graduation-cap"></i>
-                  Academic
-                </h3>
-
-              
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-			
-			  
-                <ul class="todo-list" data-widget="todo-list">
-                   <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-          <div class=container>   
-	<?php 
-	$host = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "Senior Project";
-// Create connection
- $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
- 
-	$result=mysqli_query($con, "SELECT date_format(Date, '%Y-%m-%d') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Academic' ") or die("connection error");
-	
-
-	echo "<table id='customers' border =''>";
-	//echo "<tr><td>Who is going to the Study Blitz?</td></tr>\n";
-	echo "<tr>
-	<td>Select Event</td>
-	
-	<td>Organization Name</td>
-	<td>Event</td> 
-	<td>Event Location</td> 
-	
-	<td>Date</td> 
-	<td>Time</td> </tr>\n";
-	$count3 =1;
-	while($row4=mysqli_fetch_assoc($result))
-	{
-	$a1="";
-	$a1 ="n_";
-	$a1 .= $count3;
-	$orgID=$row4['orgID'];
-
-	echo "<tr></tr><tr>
-	<td><input type='checkbox' name='$a1'></td>
-                  <td>{$row4['org_name']}</td>
-                  <td>{$row4['event']}</td>
-				  <td>{$row4['Location']}</td>
-				  
-                  
-                  <td>{$row4['Date']}</td>
-                  <td>{$row4['time']}</td>
-                  
-                  
-               </tr>";
-         $count3++; 	
-		 
-	if(isset($_POST[$a1])){
-		$result2 = mysqli_query($con,"SELECT * FROM `calendarevents` WHERE userid='{$_SESSION['userid']}' and title='{$row4['event']} and org_name='{$row4['org_name']}' and time='{$row4['time']} '");
-		$check=mysqli_num_rows($result2);
-		if(!$check){
-		echo "{$row4['event']} has been added to your calendar.";
-				$into=mysqli_query($con,"INSERT INTO calendarevents( title,userid,status,date,orgID,org_name, username) value ('{$row4['event']}','{$_SESSION['userid']}','1','{$row4['Date']}','$orgID','{$row4['org_name']}','{$_SESSION['use']}')");
-		 }else{
-			 
-			 echo "{$row4['event']} has already been added to your calendar.";
-		 }
-	}
-      }
-	
-	echo "</table>";
-	
-	 
-	 
-	 
-	
-	 
-	
-	?>
- 
-    </div>
-								<input  type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
-   
-			<script type ="text/javascript">
-			function mess() {
-   alert(" Your event was added");
-   return true;
-}
-</script>
-        </form>
-		<script>
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
-</script>
-    </div> 
-	</div>
-	</div>
-	<div class="card- body">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-users mr-1"></i>
@@ -537,41 +499,41 @@ $dbname = "Senior Project";
 	<td>Date</td> 
 	<td>Time</td> </tr>\n";
 	$count3 =1;
-	while($row6=mysqli_fetch_assoc($result))
+	while($row=mysqli_fetch_assoc($result))
 	{
-	$a2="";
-	$a2 ="n_";
-	$a2 .= $count3;
-	$orgID=$row6['orgID'];
+	$a="";
+	$a ="n_";
+	$a .= $count3;
+	$orgID=$row['orgID'];
 
 	echo "<tr></tr><tr>
-	<td><input type='checkbox' name='$a2'></td>
-                  <td>{$row6['org_name']}</td>
-                  <td>{$row6['event']}</td>
-				  <td>{$row6['Location']}</td>
+	<td><input type='checkbox' name='$a'></td>
+                  <td>{$row['org_name']}</td>
+                  <td>{$row['event']}</td>
+				  <td>{$row['Location']}</td>
 				  
                   
-                  <td>{$row6['Date']}</td>
-                  <td>{$row6['time']}</td>
+                  <td>{$row['Date']}</td>
+                  <td>{$row['time']}</td>
                   
                   
                </tr>";
          $count3++; 	
 		 
-	if(isset($_POST[$a2])){
-		$result3 = mysqli_query($con,"SELECT * FROM `calendarevents2` WHERE userid='{$_SESSION['userid']}' and title='{$row6['event']} and org_name='{$row6['org_name']}' and time='{$row6['time']} '");
-		$check=mysqli_num_rows($result3);
+	if(isset($_POST[$a])){
+		$result2 = mysqli_query($con,"SELECT * FROM `calendarevents` WHERE userid='{$_SESSION['userid']}' and title='{$row['event']}'");
+		$check=mysqli_num_rows($result2);
 		if(!$check){
-		echo "{$row6['event']} has been added to your calendar.";
-				$into=mysqli_query($con,"INSERT INTO calendarevents2( title,userid,status,date,orgID,org_name, username) value ('{$row6['event']}','{$_SESSION['userid']}','1','{$row6['Date']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO calendarevents( title,userid,status,date,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','1','{$row['Date']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
 		 }else{
 			 
-			 echo "{$row6['event']} has already been added to your calendar.";
+			 echo "{$row['event']} has already been added to your calendar.";
 		 }
 	}
       }
 	
-	echo "</table>";s
+	echo "</table>";
 	
 	 
 	 
@@ -582,7 +544,7 @@ $dbname = "Senior Project";
 	?>
  
     </div>
-								<input  type='submit'name='submit' value='+Add Event' onclick='btnClick();'>
+								<input  type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
    
 			<script type ="text/javascript">
 			function mess() {
@@ -640,36 +602,36 @@ $dbname = "Senior Project";
 	<td>Date</td> 
 	<td>Time</td> </tr>\n";
 	$count4 =1;
-	while($row1=mysqli_fetch_assoc($result))
-	 {
-	$a3="";
-	$a3 ="n_";
-	$a3 .= $count4;
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$a1="";
+	$a1 ="commS_";
+	$a1 .= $count4;
 	$orgID=$row['orgID'];
 
 	echo "<tr></tr><tr>
-	<td><input type='checkbox' name='$a3'></td>
-                  <td>{$row1['org_name']}</td>
-                  <td>{$row1['event']}</td>
+	<td><input type='checkbox' name='$a1'></td>
+                  <td>{$row['org_name']}</td>
+                  <td>{$row['event']}</td>
 				  
 				  
-                  <td>{$row1['Location']}</td>
-                  <td>{$row1['Date']}</td>
-                  <td>{$row1['time']}</td>
+                  <td>{$row['Location']}</td>
+                  <td>{$row['Date']}</td>
+                  <td>{$row['time']}</td>
                   
                   
                </tr>";
          $count4++; 	
 		 
-	if(isset($_POST[$a3])){
-		$result4 = mysqli_query($con,"SELECT * FROM `calendarevents` WHERE userid='{$_SESSION['userid']}' and title='{$row1['event']} and org_name='{$row1['org_name']}' and time='{$row1['time']} '");
-		$check=mysqli_num_rows($result4);
+	if(isset($_POST[$a1])){
+		$result2 = mysqli_query($con,"SELECT * FROM `calendarevents` WHERE userid='{$_SESSION['userid']}' and title='{$row['event']}'");
+		$check=mysqli_num_rows($result2);
 		if(!$check){
-		echo "{$row1['event']} has been added to your calendar.";
-		$into=mysqli_query($con,"INSERT INTO calendarevents( title,userid,status,date,orgID,org_name, username) value ('{$row1['event']}','{$_SESSION['userid']}','1','{$row1['Date']}','$orgID','{$row1['org_name']}','{$_SESSION['use']}')");	 
+		echo "{$row['event']} has been added to your calendar.";
+		$into=mysqli_query($con,"INSERT INTO calendarevents( title,userid,status,date,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','1','{$row['Date']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
 		 }else{
 			 
-			 echo "{$row1['event']} has already been added to your calendar.";
+			 echo "{$row['event']} has already been added to your calendar.";
 		 }
 	}
       }
@@ -685,7 +647,7 @@ $dbname = "Senior Project";
 	?>
 
   </div>  
-    <input type='submit'name='submit6' value='+Add Event' onclick='btnClick();'>
+    <input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
    
 			<script type ="text/javascript">
 			function mess() {
@@ -718,8 +680,6 @@ $dbname = "Senior Project";
 			
 			  
                 <ul class="todo-list" data-widget="todo-list">
-
-				</ul>
                    <form action="" method="post">
           <div class=container> 
              
@@ -732,7 +692,7 @@ $dbname = "Senior Project";
  $con = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
  
  
-	$result=mysqli_query($con, "SELECT date_format(Date, '%Y-%m-%d') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Career Opportunities'") or die("connection error");
+	$result=mysqli_query($con, "SELECT date_format(Date, '%a %b %D %Y') as Date ,TIME_FORMAT(Time, '%h:%i%p') as time,org_name,orgID,event,Location From orgevents where type = 'Career Opportunities'") or die("connection error");
 	$Time=date("g:i a", strtotime("Time"));
 
 	echo "<table id='customers' border =''>";
@@ -769,14 +729,14 @@ $dbname = "Senior Project";
          $count++; 	
 		 
 	if(isset($_POST[$a])){
-		$result8= mysqli_query($con,"SELECT event_name, userid,orgID,org_name,username FROM commserv WHERE org_name='{$row['org_name']}' and orgID='$orgID' and event_name='{$row['event']}' and userid='{$_SESSION['userid']}' and username='{$_SESSION['use']}'");
-		$check=mysqli_num_rows($result8);
-		if(!$check){
-		echo "{$row['event']} has been added to your calendar.";
-		$into=mysqli_query($con,"INSERT INTO calendarevents( title,userid,status,date,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','1','{$row['Date']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	 
-		 }else{
+		$result4 = mysqli_query($con,"SELECT * FROM `calendarevents` WHERE userid='{$_SESSION['userid']}' and title='{$row['event']} and org_name='{$row['org_name']}' and time='{$row['time']} '");
+		$check=mysqli_num_rows($result4);
+		if($check){
+		 echo "{$row1['event']} has already been added to your calendar.";
+		 }else{$into=mysqli_query($con,"INSERT INTO calendarevents( title,userid,status,date,orgID,org_name, username) value ('{$row['event']}','{$_SESSION['userid']}','1','{$row['Date']}','$orgID','{$row['org_name']}','{$_SESSION['use']}')");	
+			 echo "{$row['event']} has been added to your calendar.";
+		
 			 
-			 echo "{$row['event']} has already been added to your calendar.";
 		 }
 	}
       }
@@ -792,7 +752,7 @@ $dbname = "Senior Project";
 	?>
 	
  </div>
-    <input type='submit'name='submit7' value='+Add Event' onclick='btnClick();'>
+    <input type='submit'name='submit2' value='+Add Event' onclick='btnClick();'>
     
    
 			<script type ="text/javascript">
@@ -857,8 +817,7 @@ $dbname = "Senior Project";
 	echo "</table>";
 		?>
 	</div>
-	
-	 
+
 
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

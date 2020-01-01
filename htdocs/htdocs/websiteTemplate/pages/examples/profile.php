@@ -379,7 +379,7 @@ function updateStatus() {
 					  $dbname = "Senior Project";
 // Create connection
  $conn = mysqli_connect($host,$dbusername,$dbpassword,$dbname) ;
-		$sql2 = "SELECT title, c.date as date,TIME_FORMAT(Time, '%h:%i%p') as time  from calendarevents c join orgevents on c.orgID=orgevents.OrgID where userid='{$_SESSION['userid']}'" ;
+		$sql2 = "SELECT title,c.date as date,TIME_FORMAT(Time, '%h:%i%p') as Time FROM calendarevents c JOIN orgevents ON title = orgevents.Event WHERE userid='{$_SESSION['userid']}'" ;
 		
 	$result= mysqli_query($conn,$sql2) or die("Badd Query:$sql2");
 	echo "<table id =customers border ='1'>";
@@ -387,7 +387,7 @@ function updateStatus() {
 	
 	while($row=mysqli_fetch_assoc($result))
 	{
-		echo"<tr><td> {$row['title']}</td><td> {$row['date']}</td><td> {$row['time']}</td></tr>\n";
+		echo"<tr><td> {$row['title']}</td><td> {$row['date']}</td><td> {$row['Time']}</td></tr>\n";
 	}
 	echo "</table>";
 	

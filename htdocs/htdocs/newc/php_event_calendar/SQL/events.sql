@@ -19,20 +19,29 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `senior project`
+-- Database: `codexworld`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `calendarevents`
+-- Table structure for table `events`
 --
+
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=Active | 0=Inactive'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `calendarevents` (`id`, `title`, `date`, `created`, `modified`, `status`) VALUES
+INSERT INTO `events` (`id`, `title`, `date`, `created`, `modified`, `status`) VALUES
 (1, 'Internet of Things World Forum', '2019-04-20', '2019-04-16 06:15:17', '2019-04-16 06:15:17', 1),
 (2, 'The Future of Money and Technology Summit', '2019-04-25', '2019-04-16 06:15:17', '2019-04-16 06:15:17', 1),
 (3, 'Chrome Dev Summit', '2019-04-29', '2019-04-16 06:15:17', '2019-04-16 06:15:17', 1),
@@ -47,7 +56,7 @@ INSERT INTO `calendarevents` (`id`, `title`, `date`, `created`, `modified`, `sta
 --
 -- Indexes for table `events`
 --
-ALTER TABLE `calendarevents`
+ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -57,7 +66,7 @@ ALTER TABLE `calendarevents`
 --
 -- AUTO_INCREMENT for table `events`
 --
-ALTER TABLE `calendarevents`
+ALTER TABLE `events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 

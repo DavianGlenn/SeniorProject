@@ -25,8 +25,13 @@ if(!isset($_SESSION['logged_in'])){
   <link rel="stylesheet" href="../plugins/fullcalendar-bootstrap/main.min.css">
   <link rel="stylesheet" href="../../newc/php_event_calendar/css/style.css">
   <!-- J Query Library -->
-
+<script src="../../newc/php_event_calendar/js/jquery.min.js"></script>
   <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body>
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -122,6 +127,7 @@ if(!isset($_SESSION['logged_in'])){
     </div>
     <!-- /.sidebar -->
   </aside>
+
 	<!-- Display event calendar -->
 	<div id="calendar_div">
 		<?php echo getCalender(); ?>
